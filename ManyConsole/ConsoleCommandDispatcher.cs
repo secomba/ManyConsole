@@ -32,8 +32,8 @@ namespace ManyConsole
                 if (commands.Count() == 1)
                 {
                     selectedCommand = commands.First();
-
-                    if (arguments.Count() > 0 && arguments.First().ToLower() == selectedCommand.Command.ToLower())
+                    // support basic splitting of command arguments like "q|quit" => q, quit
+                    if (arguments.Any() && DoesArgMatchCommand(arguments.First(), selectedCommand))
                     {
                         remainingArguments = selectedCommand.GetActualOptions().Parse(arguments.Skip(1));
                     }
@@ -108,7 +108,15 @@ namespace ManyConsole
   
         private static ConsoleCommand GetMatchingCommand(IEnumerable<ConsoleCommand> command, string name)
         {
-            return command.FirstOrDefault(c => c.Command.Equals(name, StringComparison.OrdinalIgnoreCase));
+            return command.FirstOrDefault(c => DoesArgMatchCommand(name, c));
+        }
+
+        private static bool DoesArgMatchCommand(string argument, ConsoleCommand command)
+        {
+            return
+                command.Command.ToLower()
+                    .Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray()
+                    .Contains(argument.ToLower());
         }
 
         private static void ValidateConsoleCommand(ConsoleCommand command)
