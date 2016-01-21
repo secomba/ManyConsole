@@ -21,6 +21,8 @@ namespace ManyConsole
             RequiredOptions = new List<RequiredOptionRecord>();
         }
 
+        public bool IsHidden { get; private set; }
+
         public string Command { get; private set; }
         public string OneLineDescription { get; private set; }
         public OptionSet Options { get; protected set; }
@@ -29,6 +31,12 @@ namespace ManyConsole
         public string RemainingArgumentsHelpText { get; private set; }
         private OptionSet OptionsHasd { get; set; }
         private List<RequiredOptionRecord> RequiredOptions { get; set; }
+
+        public ConsoleCommand IsHiddenFromHelpText()
+        {
+            IsHidden = true;
+            return this;
+        }
 
         public ConsoleCommand IsCommand(string command, string oneLineDescription = "")
         {

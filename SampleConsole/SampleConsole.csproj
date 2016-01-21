@@ -54,6 +54,7 @@
     <Compile Include="EchoStringsCommand.cs" />
     <Compile Include="ExampleCommand.cs" />
     <Compile Include="GetTimeCommand.cs" />
+    <Compile Include="HiddenCommand.cs" />
     <Compile Include="MattsCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

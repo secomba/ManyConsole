@@ -18,7 +18,7 @@ namespace ManyConsole.Internal
 
             string helpCommand = "help <name>";
 
-            var commandList = commands.ToList();
+            var commandList = commands.Where(it => !it.IsHidden).ToList();
             var n = commandList.Select(c => c.Command).Concat(new [] { helpCommand}).Max(c => c.Length) + 1;
             var commandFormatString = "    {0,-" + n + "}- {1}";
 
@@ -33,6 +33,11 @@ namespace ManyConsole.Internal
 
         public static void ShowCommandHelp(ConsoleCommand selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false)
         {
+            if (selectedCommand.IsHidden)
+            {
+                return;
+            }
+
             var haveOptions = selectedCommand.GetActualOptions().Count > 0;
 
             console.WriteLine();
@@ -62,12 +67,14 @@ namespace ManyConsole.Internal
 
         public static void ShowParsedCommand(ConsoleCommand consoleCommand, TextWriter consoleOut)
         {
-            if (!consoleCommand.TraceCommandAfterParse)
+
+            if (!consoleCommand.TraceCommandAfterParse || consoleCommand.IsHidden)
             {
                 return;
             }
 
             string[] skippedProperties = new []{
+                "IsHidden",
                 "Command",
                 "OneLineDescription",
                 "Options",
