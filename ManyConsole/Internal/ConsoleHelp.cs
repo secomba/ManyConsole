@@ -33,11 +33,6 @@ namespace ManyConsole.Internal
 
         public static void ShowCommandHelp(ConsoleCommand selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false)
         {
-            if (selectedCommand.IsHidden)
-            {
-                return;
-            }
-
             var haveOptions = selectedCommand.GetActualOptions().Count > 0;
 
             console.WriteLine();

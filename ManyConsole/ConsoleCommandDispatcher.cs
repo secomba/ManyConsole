@@ -49,7 +49,7 @@ namespace ManyConsole
 
                     if (arguments[0].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        selectedCommand = GetMatchingCommand(commands, arguments.Skip(1).FirstOrDefault());
+                        selectedCommand = GetMatchingCommand(commands.Where(it => !it.IsHidden), arguments.Skip(1).FirstOrDefault()); // excude hidden commands from help mechanism
 
                         if (selectedCommand == null)
                             ConsoleHelp.ShowSummaryOfCommands(commands, console);
@@ -92,7 +92,8 @@ namespace ManyConsole
 
         private static int DealWithException(Exception e, TextWriter console, bool skipExeInExpectedUsage, ConsoleCommand selectedCommand, IEnumerable<ConsoleCommand> commands)
         {
-            if (selectedCommand != null)
+
+            if (selectedCommand != null && !selectedCommand.IsHidden)  // dont show help for hidden command even after exception
             {
                 console.WriteLine();
                 console.WriteLine(e.Message);
@@ -113,6 +114,10 @@ namespace ManyConsole
 
         private static bool DoesArgMatchCommand(string argument, ConsoleCommand command)
         {
+            if (argument == null || command == null)
+            {
+                return false;
+            }
             return
                 command.Command.ToLower()
                     .Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray()
