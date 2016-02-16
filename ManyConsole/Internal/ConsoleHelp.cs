@@ -73,6 +73,7 @@ namespace ManyConsole.Internal
                 "Command",
                 "OneLineDescription",
                 "Options",
+                "Console",
                 "TraceCommandAfterParse",
                 "RemainingArgumentsCount",
                 "RemainingArgumentsHelpText",
