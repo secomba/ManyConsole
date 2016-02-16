@@ -47,6 +47,8 @@
     <Compile Include="ConsoleCommandDispatcher.cs" />
     <Compile Include="ConsoleHelpAsException.cs" />
     <Compile Include="ConsoleModeCommand.cs" />
+    <Compile Include="HideableOptionSet.cs" />
+    <Compile Include="HideableActionOption.cs" />
     <Compile Include="Internal\ConsoleHelp.cs" />
     <Compile Include="Internal\ConsoleRedirectionDetection.cs" />
     <Compile Include="Internal\ConsoleUtil.cs" />

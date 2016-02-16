@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Xml.Linq;
 using ManyConsole.Internal;
 using NDesk.Options;
 
@@ -13,11 +11,11 @@ namespace ManyConsole
         public ConsoleCommand()
         {
             OneLineDescription = "";
-            Options = new OptionSet();
+            Options = new HideableOptionSet();
             TraceCommandAfterParse = true;
             RemainingArgumentsCount = 0;
             RemainingArgumentsHelpText = "";
-            OptionsHasd = new OptionSet();
+            OptionsHasd = new HideableOptionSet();
             RequiredOptions = new List<RequiredOptionRecord>();
         }
 
@@ -25,12 +23,12 @@ namespace ManyConsole
 
         public string Command { get; private set; }
         public string OneLineDescription { get; private set; }
-        public OptionSet Options { get; protected set; }
+        public HideableOptionSet Options { get; protected set; }
         public bool TraceCommandAfterParse { get; private set; }
         public int? RemainingArgumentsCount { get; private set; }
         public string RemainingArgumentsHelpText { get; private set; }
-        private OptionSet OptionsHasd { get; set; }
-        private List<RequiredOptionRecord> RequiredOptions { get; set; }
+        private HideableOptionSet OptionsHasd { get; }
+        private List<RequiredOptionRecord> RequiredOptions { get; }
 
         public ConsoleCommand IsHiddenFromHelpText()
         {
@@ -64,9 +62,9 @@ namespace ManyConsole
             return this;
         }
 
-        public ConsoleCommand HasOption(string prototype, string description, Action<string> action)
+        public ConsoleCommand HasOption(string prototype, string description, Action<string> action, bool hidden = false)
         {
-            OptionsHasd.Add(prototype, description, action);
+            OptionsHasd.Add(prototype, description, action, hidden);
 
             return this;
         }
@@ -78,9 +76,9 @@ namespace ManyConsole
             return this;
         }
 
-        public ConsoleCommand HasOption<T>(string prototype, string description, Action<T> action)
+        public ConsoleCommand HasOption<T>(string prototype, string description, Action<T> action, bool hidden = false)
         {
-            OptionsHasd.Add(prototype, description, action);
+            OptionsHasd.Add(prototype, description, action, hidden);
             return this;
         }
 
@@ -105,15 +103,15 @@ namespace ManyConsole
             return this;
         }
 
-        public ConsoleCommand HasOption(string prototype, string description, OptionAction<string, string> action)
+        public ConsoleCommand HasOption(string prototype, string description, OptionAction<string, string> action, bool hidden = false)
         {
-            OptionsHasd.Add(prototype, description, action);
+            OptionsHasd.Add(prototype, description, action, hidden);
             return this;
         }
 
-        public ConsoleCommand HasOption<TKey, TValue>(string prototype, string description, OptionAction<TKey, TValue> action)
+        public ConsoleCommand HasOption<TKey, TValue>(string prototype, string description, OptionAction<TKey, TValue> action, bool hidden = false)
         {
-            OptionsHasd.Add(prototype, description, action);
+            OptionsHasd.Add(prototype, description, action, hidden);
             return this;
         }
 
@@ -135,9 +133,9 @@ namespace ManyConsole
 
         public abstract int Run(string[] remainingArguments);
 
-        public OptionSet GetActualOptions()
+        public HideableOptionSet GetActualOptions()
         {
-            var result = new OptionSet();
+            var result = new HideableOptionSet();
 
             foreach (var option in Options)
                 result.Add(option);

@@ -19,7 +19,7 @@ namespace ManyConsole
         public ConsoleModeCommand(
             TextWriter outputStream = null,
             TextReader inputStream = null,
-            OptionSet options = null)
+            HideableOptionSet options = null)
             : this(() => new ConsoleCommand[0], outputStream, inputStream, null, options)
         {
             _commandSource = () => new ConsoleCommand[0];
@@ -31,7 +31,7 @@ namespace ManyConsole
             TextWriter outputStream = null,
             TextReader inputStream = null,
             string friendlyContinueText = null,
-            OptionSet options = null)
+            HideableOptionSet options = null)
         {
             _inputStream = inputStream ?? Console.In;
             _outputStream = outputStream ?? Console.Out;

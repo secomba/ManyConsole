@@ -42,7 +42,7 @@ namespace MC.AX.DataUtility
 
             //  Setting .Options directly is the old way to do this, you may prefer to call the helper
             //  method HasOption/HasRequiredOption.
-            Options = new OptionSet()
+            Options = new HideableOptionSet
             {
                 {"l|list=", "Values to add to list", v => OptionalArgumentList.Add(v)},
                 {"r|requiredArguments=", "Optional string argument requiring a value be specified afterwards", s => OptionalArgument1 = s},

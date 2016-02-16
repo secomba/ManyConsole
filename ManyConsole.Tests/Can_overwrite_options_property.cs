@@ -22,7 +22,7 @@ namespace ManyConsole.Tests
                 this.HasOption<int>("A=", "first value", v => A = v);
                 this.SkipsCommandSummaryBeforeRunning();
 
-                var optionSet = new OptionSet();
+                var optionSet = new HideableOptionSet();
                 this.Options = optionSet;
                 optionSet.Add<int>("B=", "second option", v => B = v);
             }

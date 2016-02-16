@@ -55,6 +55,7 @@
     <Compile Include="ExampleCommand.cs" />
     <Compile Include="GetTimeCommand.cs" />
     <Compile Include="HiddenCommand.cs" />
+    <Compile Include="HiddenOptionsCommand.cs" />
     <Compile Include="MattsCommand.cs" />
     <Compile Include="MultiNameCommand.cs" />
     <Compile Include="Program.cs" />

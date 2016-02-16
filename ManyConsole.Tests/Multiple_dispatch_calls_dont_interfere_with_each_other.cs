@@ -57,7 +57,7 @@ namespace ManyConsole.Tests
                 _recorder = recorder;
 
                 this.IsCommand("move");
-                Options = new OptionSet()
+                Options = new HideableOptionSet
                 {
                     {"x=", "Coordinate along the x axis.", v => X = int.Parse(v)},
                     {"y=", "Coordinate along the y axis.", v => Y = int.Parse(v)},
