@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ManyConsole.Internal;
+using NDesk.Options;
 
 namespace ManyConsole
 {
@@ -10,14 +11,15 @@ namespace ManyConsole
     {
         public static int DispatchCommand(ConsoleCommand command, string[] arguments, TextWriter consoleOut)
         {
-            return DispatchCommand(new [] {command}, arguments, consoleOut);
+            return DispatchCommand(new[] {command}, arguments, consoleOut);
         }
 
-        public static int DispatchCommand(IList<ConsoleCommand> commands, string[] arguments, TextWriter consoleOut, bool skipExeInExpectedUsage = false, ConsoleCommand customHelpCommand = null)
+        public static int DispatchCommand(IList<ConsoleCommand> commands, string[] arguments, TextWriter consoleOut,
+            bool skipExeInExpectedUsage = false, ConsoleCommand customHelpCommand = null)
         {
             ConsoleCommand selectedCommand = null;
 
-            TextWriter console = consoleOut;
+            var console = consoleOut;
 
             foreach (var command in commands)
             {
@@ -47,29 +49,31 @@ namespace ManyConsole
                         throw new ConsoleHelpAsException("No arguments specified.");
 
                     // to support custom help implementation
-                    if (customHelpCommand != null && ConsoleUtil.DoesArgMatchCommand(arguments.First(), customHelpCommand))
+                    if (customHelpCommand != null &&
+                        ConsoleUtil.DoesArgMatchCommand(arguments.First(), customHelpCommand))
                     {
                         customHelpCommand.Run(
-                                    customHelpCommand.GetActualOptions().Parse(arguments.Skip(1)).ToArray());
+                            customHelpCommand.GetActualOptions().Parse(arguments.Skip(1)).ToArray());
                         return -1;
                     }
 
                     if (arguments.First().Equals("help", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        selectedCommand = GetMatchingCommand(commands.Where(it => !it.IsHidden).ToList(), arguments.Skip(1).FirstOrDefault()); // excude hidden commands from help mechanism
+                        selectedCommand = GetMatchingCommand(commands.Where(it => !it.IsHidden).ToList(),
+                            arguments.Skip(1).FirstOrDefault()); // excude hidden commands from help mechanism
 
                         if (selectedCommand == null)
                         {
-                           ConsoleHelp.ShowSummaryOfCommands(commands, console);             
+                            ConsoleHelp.ShowSummaryOfCommands(commands, console);
                         }
                         else
                         {
                             ConsoleHelp.ShowCommandHelp(selectedCommand, console, skipExeInExpectedUsage);
                         }
                         return -1;
-                        }
+                    }
 
-                        selectedCommand = GetMatchingCommand(commands, arguments.First());
+                    selectedCommand = GetMatchingCommand(commands, arguments.First());
 
                     if (selectedCommand == null)
                         throw new ConsoleHelpAsException("Command name not recognized.");
@@ -90,20 +94,26 @@ namespace ManyConsole
 
                 return selectedCommand.Run(remainingArguments.ToArray());
             }
-            catch (ConsoleHelpAsException e)
+            catch (Exception e)
             {
-                return DealWithException(e, console, skipExeInExpectedUsage, selectedCommand, commands);
-            }
-            catch (NDesk.Options.OptionException e)
-            {
-                return DealWithException(e, console, skipExeInExpectedUsage, selectedCommand, commands);
+                if (e is ConsoleHelpAsException || e is OptionException)
+                {
+                    if (customHelpCommand != null)
+                    {
+                        customHelpCommand.Run(customHelpCommand.GetActualOptions().Parse(arguments).ToArray());
+                        return -1;
+                    }
+                    return DealWithException(e, console, skipExeInExpectedUsage, selectedCommand, commands);
+                }
+                throw;
             }
         }
 
-        private static int DealWithException(Exception e, TextWriter console, bool skipExeInExpectedUsage, ConsoleCommand selectedCommand, IEnumerable<ConsoleCommand> commands)
+        private static int DealWithException(Exception e, TextWriter console, bool skipExeInExpectedUsage,
+            ConsoleCommand selectedCommand, IEnumerable<ConsoleCommand> commands)
         {
-
-            if (selectedCommand != null && !selectedCommand.IsHidden)  // dont show help for hidden command even after exception
+            if (selectedCommand != null && !selectedCommand.IsHidden)
+                // dont show help for hidden command even after exception
             {
                 console.WriteLine();
                 console.WriteLine(e.Message);
@@ -116,7 +126,7 @@ namespace ManyConsole
 
             return -1;
         }
-  
+
         private static ConsoleCommand GetMatchingCommand(IList<ConsoleCommand> command, string name)
         {
             return command.FirstOrDefault(c => ConsoleUtil.DoesArgMatchCommand(name, c));
@@ -126,7 +136,7 @@ namespace ManyConsole
         {
             if (string.IsNullOrEmpty(command.Command))
             {
-                throw new InvalidOperationException(String.Format(
+                throw new InvalidOperationException(string.Format(
                     "Command {0} did not call IsCommand in its constructor to indicate its name and description.",
                     command.GetType().Name));
             }
@@ -144,20 +154,20 @@ namespace ManyConsole
             var assembly = typeInSameAssembly.Assembly;
 
             var commandTypes = assembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(ConsoleCommand)))
+                .Where(t => t.IsSubclassOf(typeof (ConsoleCommand)))
                 .Where(t => !t.IsAbstract)
                 .OrderBy(t => t.FullName);
 
-            List<ConsoleCommand> result = new List<ConsoleCommand>();
+            var result = new List<ConsoleCommand>();
 
-            foreach(var commandType in commandTypes)
+            foreach (var commandType in commandTypes)
             {
-                var constructor = commandType.GetConstructor(new Type[] { });
+                var constructor = commandType.GetConstructor(new Type[] {});
 
                 if (constructor == null)
                     continue;
 
-                result.Add((ConsoleCommand)constructor.Invoke(new object[] { }));
+                result.Add((ConsoleCommand) constructor.Invoke(new object[] {}));
             }
 
             return result;
