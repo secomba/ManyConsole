@@ -26,5 +26,14 @@ namespace ManyConsole.Internal
                     .Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray()
                     .Contains(argument.ToLower());
         }
+
+        public static string FormatCommandName(string commandName)
+        {
+            if (!commandName.Contains("|"))
+            {
+                return commandName.Trim();
+            }
+            return String.Join(", ", commandName.Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray());
+        }
     }
 }

@@ -19,12 +19,12 @@ namespace ManyConsole.Internal
             string helpCommand = "help <name>";
 
             var commandList = commands.Where(it => !it.IsHidden).ToList();
-            var n = commandList.Select(c => FormatCommandName(c.Command)).Concat(new [] { helpCommand}).Max(c => c.Length) + 1;
+            var n = commandList.Select(c => ConsoleUtil.FormatCommandName(c.Command)).Concat(new [] { helpCommand}).Max(c => c.Length) + 1;
             var commandFormatString = "    {0,-" + n + "}- {1}";
 
             foreach (var command in commandList)
             {
-                console.WriteLine(commandFormatString, FormatCommandName(command.Command), command.OneLineDescription);
+                console.WriteLine(commandFormatString, ConsoleUtil.FormatCommandName(command.Command), command.OneLineDescription);
             }
             console.WriteLine();
             console.WriteLine(commandFormatString, helpCommand, "For help with one of the above commands");
@@ -36,7 +36,7 @@ namespace ManyConsole.Internal
             var haveOptions = selectedCommand.GetActualOptions().Count > 0;
 
             console.WriteLine();
-            console.WriteLine("'" + FormatCommandName(selectedCommand.Command) + "' - " + selectedCommand.OneLineDescription);
+            console.WriteLine("'" + ConsoleUtil.FormatCommandName(selectedCommand.Command) + "' - " + selectedCommand.OneLineDescription);
             console.WriteLine();
             console.Write("Expected usage:");
 
@@ -101,7 +101,7 @@ namespace ManyConsole.Internal
 
             consoleOut.WriteLine();
 
-            string introLine = String.Format("Executing {0}", FormatCommandName(consoleCommand.Command));
+            string introLine = String.Format("Executing {0}", ConsoleUtil.FormatCommandName(consoleCommand.Command));
 
             if (string.IsNullOrEmpty(consoleCommand.OneLineDescription))
                 introLine = introLine + ":";
@@ -116,15 +116,6 @@ namespace ManyConsole.Internal
             consoleOut.WriteLine();
         }
 
-
-        private static string FormatCommandName(string commandName)
-        {
-            if (!commandName.Contains("|"))
-            {
-                return commandName.Trim();
-            }
-            return string.Join(", ", commandName.Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray());
-        }
         static string MakeObjectReadable(object value)
         {
             string readable;
