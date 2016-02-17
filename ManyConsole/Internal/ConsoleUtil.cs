@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace ManyConsole.Internal
 {
@@ -8,10 +9,22 @@ namespace ManyConsole.Internal
         {
             if (args.Count() < expectedArgumentCount)
                 throw new ConsoleHelpAsException(
-                    string.Format("Invalid number of arguments-- expected {0} more.", expectedArgumentCount - args.Count()));
+                    String.Format("Invalid number of arguments-- expected {0} more.", expectedArgumentCount - args.Count()));
             
             if (args.Count() > expectedArgumentCount)
-                throw new ConsoleHelpAsException("Extra parameters specified: " + string.Join(", ", args.Skip(expectedArgumentCount).ToArray()));
+                throw new ConsoleHelpAsException("Extra parameters specified: " + String.Join(", ", args.Skip(expectedArgumentCount).ToArray()));
+        }
+
+        public static bool DoesArgMatchCommand(string argument, ConsoleCommand command)
+        {
+            if (argument == null || command == null)
+            {
+                return false;
+            }
+            return
+                command.Command.ToLower()
+                    .Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray()
+                    .Contains(argument.ToLower());
         }
     }
 }

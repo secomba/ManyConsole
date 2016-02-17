@@ -45,7 +45,7 @@ namespace ManyConsole.Internal
                 console.Write(" " + AppDomain.CurrentDomain.FriendlyName);
             }
 
-            console.Write(" " + FormatCommandName(selectedCommand.Command));
+            console.Write(" " + selectedCommand.Command);
 
             if (haveOptions)
                 console.Write(" <options> ");

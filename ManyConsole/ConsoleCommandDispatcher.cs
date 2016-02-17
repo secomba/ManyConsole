@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using ManyConsole.Internal;
@@ -14,7 +13,7 @@ namespace ManyConsole
             return DispatchCommand(new [] {command}, arguments, consoleOut);
         }
 
-        public static int DispatchCommand(IEnumerable<ConsoleCommand> commands, string[] arguments, TextWriter consoleOut, bool skipExeInExpectedUsage = false)
+        public static int DispatchCommand(IList<ConsoleCommand> commands, string[] arguments, TextWriter consoleOut, bool skipExeInExpectedUsage = false, ConsoleCommand customHelpCommand = null)
         {
             ConsoleCommand selectedCommand = null;
 
@@ -29,11 +28,11 @@ namespace ManyConsole
             {
                 List<string> remainingArguments;
 
-                if (commands.Count() == 1)
+                if (commands.Count == 1)
                 {
                     selectedCommand = commands.First();
                     // support basic splitting of command arguments like "q|quit" => q, quit
-                    if (arguments.Any() && DoesArgMatchCommand(arguments.First(), selectedCommand))
+                    if (arguments.Any() && ConsoleUtil.DoesArgMatchCommand(arguments.First(), selectedCommand))
                     {
                         remainingArguments = selectedCommand.GetActualOptions().Parse(arguments.Skip(1));
                     }
@@ -44,22 +43,33 @@ namespace ManyConsole
                 }
                 else
                 {
-                    if (arguments.Count() < 1)
+                    if (!arguments.Any())
                         throw new ConsoleHelpAsException("No arguments specified.");
 
-                    if (arguments[0].Equals("help", StringComparison.InvariantCultureIgnoreCase))
+                    // to support custom help implementation
+                    if (customHelpCommand != null && ConsoleUtil.DoesArgMatchCommand(arguments.First(), customHelpCommand))
                     {
-                        selectedCommand = GetMatchingCommand(commands.Where(it => !it.IsHidden), arguments.Skip(1).FirstOrDefault()); // excude hidden commands from help mechanism
-
-                        if (selectedCommand == null)
-                            ConsoleHelp.ShowSummaryOfCommands(commands, console);
-                        else
-                            ConsoleHelp.ShowCommandHelp(selectedCommand, console, skipExeInExpectedUsage);
-
+                        customHelpCommand.Run(
+                                    customHelpCommand.GetActualOptions().Parse(arguments.Skip(1)).ToArray());
                         return -1;
                     }
 
-                    selectedCommand = GetMatchingCommand(commands, arguments.First());
+                    if (arguments.First().Equals("help", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        selectedCommand = GetMatchingCommand(commands.Where(it => !it.IsHidden).ToList(), arguments.Skip(1).FirstOrDefault()); // excude hidden commands from help mechanism
+
+                        if (selectedCommand == null)
+                        {
+                           ConsoleHelp.ShowSummaryOfCommands(commands, console);             
+                        }
+                        else
+                        {
+                            ConsoleHelp.ShowCommandHelp(selectedCommand, console, skipExeInExpectedUsage);
+                        }
+                        return -1;
+                        }
+
+                        selectedCommand = GetMatchingCommand(commands, arguments.First());
 
                     if (selectedCommand == null)
                         throw new ConsoleHelpAsException("Command name not recognized.");
@@ -107,21 +117,9 @@ namespace ManyConsole
             return -1;
         }
   
-        private static ConsoleCommand GetMatchingCommand(IEnumerable<ConsoleCommand> command, string name)
+        private static ConsoleCommand GetMatchingCommand(IList<ConsoleCommand> command, string name)
         {
-            return command.FirstOrDefault(c => DoesArgMatchCommand(name, c));
-        }
-
-        private static bool DoesArgMatchCommand(string argument, ConsoleCommand command)
-        {
-            if (argument == null || command == null)
-            {
-                return false;
-            }
-            return
-                command.Command.ToLower()
-                    .Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray()
-                    .Contains(argument.ToLower());
+            return command.FirstOrDefault(c => ConsoleUtil.DoesArgMatchCommand(name, c));
         }
 
         private static void ValidateConsoleCommand(ConsoleCommand command)
@@ -141,7 +139,7 @@ namespace ManyConsole
                     parametersRequiredAfterOptions.Value);
         }
 
-        public static IEnumerable<ConsoleCommand> FindCommandsInSameAssemblyAs(Type typeInSameAssembly)
+        public static IList<ConsoleCommand> FindCommandsInSameAssemblyAs(Type typeInSameAssembly)
         {
             var assembly = typeInSameAssembly.Assembly;
 

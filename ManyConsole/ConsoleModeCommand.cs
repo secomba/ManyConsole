@@ -91,7 +91,7 @@ namespace ManyConsole
                 {
                     args = CommandLineParser.Parse(input);
 
-                    var result = ConsoleCommandDispatcher.DispatchCommand(GetNextCommands(), args, _outputStream, true);
+                    var result = ConsoleCommandDispatcher.DispatchCommand(GetNextCommands().ToList(), args, _outputStream, true);
                     if (result != 0)
                     {
                         haveError = true;
