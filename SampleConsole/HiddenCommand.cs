@@ -6,8 +6,7 @@ namespace SampleConsole {
 
         public HiddenCommand()
         {
-            IsCommand("hidden-command", "this command is hidden so this line should NEVER BE SEEN on the console");
-            IsHiddenFromHelpText();
+            IsCommand("hidden-command", "this command is hidden so this line should NEVER BE SEEN on the console", hidden:true);
 
         }
         public override int Run(string[] remainingArguments)

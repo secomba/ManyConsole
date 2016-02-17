@@ -30,16 +30,11 @@ namespace ManyConsole
         private HideableOptionSet OptionsHasd { get; }
         private List<RequiredOptionRecord> RequiredOptions { get; }
 
-        public ConsoleCommand IsHiddenFromHelpText()
-        {
-            IsHidden = true;
-            return this;
-        }
-
-        public ConsoleCommand IsCommand(string command, string oneLineDescription = "")
+        public ConsoleCommand IsCommand(string command, string oneLineDescription = "", bool hidden = false)
         {
             Command = command;
             OneLineDescription = oneLineDescription;
+            IsHidden = hidden;
             return this;
         }
 
