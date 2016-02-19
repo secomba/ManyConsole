@@ -149,13 +149,14 @@ namespace ManyConsole
                     parametersRequiredAfterOptions.Value);
         }
 
-        public static IList<ConsoleCommand> FindCommandsInSameAssemblyAs(Type typeInSameAssembly)
+        public static IList<ConsoleCommand> FindCommandsInSameAssemblyAs(Type typeInSameAssembly, Func<Type,bool> validateCommandType = null)
         {
             var assembly = typeInSameAssembly.Assembly;
 
             var commandTypes = assembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof (ConsoleCommand)))
                 .Where(t => !t.IsAbstract)
+                .Where(t =>  validateCommandType?.Invoke(t) ?? true)
                 .OrderBy(t => t.FullName);
 
             var result = new List<ConsoleCommand>();
