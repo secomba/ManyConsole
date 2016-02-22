@@ -10,9 +10,15 @@ namespace ManyConsole.Internal
 {
     public class ConsoleHelp
     {
-        public static void ShowSummaryOfCommands(IEnumerable<IConsoleCommand> commands, TextWriter console)
+        public static void ShowSummaryOfCommands(IEnumerable<IConsoleCommand> commands, TextWriter console, string summaryTitle = null)
         {
             console.WriteLine();
+            if (summaryTitle != null)
+            {
+                console.WriteLine(summaryTitle);
+                console.WriteLine();
+            }
+
             console.WriteLine("Available commands are:");
             console.WriteLine();
 
