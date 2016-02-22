@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ManyConsole.Internal;
-using NDesk.Options;
 
 namespace ManyConsole
 {
@@ -13,7 +12,7 @@ namespace ManyConsole
         private readonly TextWriter _outputStream;
         IConsoleRedirectionDetection _redirectionDetector = new ConsoleRedirectionDetection();
         public static string FriendlyContinuePrompt = "Enter a command or 'x' to exit or '?' for help";
-        readonly Func<IEnumerable<ConsoleCommand>> _commandSource;
+        readonly Func<IEnumerable<IConsoleCommand>> _commandSource;
         private string _continuePrompt;
 
         public ConsoleModeCommand(
@@ -27,7 +26,7 @@ namespace ManyConsole
 
         [Obsolete("Its preferred to override methods on ConsoleModeCommand and use the shorter constructor.")]
         public ConsoleModeCommand(
-            Func<IEnumerable<ConsoleCommand>> commandSource,
+            Func<IEnumerable<IConsoleCommand>> commandSource,
             TextWriter outputStream = null,
             TextReader inputStream = null,
             string friendlyContinueText = null,
@@ -62,7 +61,7 @@ namespace ManyConsole
         /// Runs to get the next available commands
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerable<ConsoleCommand> GetNextCommands()
+        public virtual IEnumerable<IConsoleCommand> GetNextCommands()
         {
             return _commandSource();
         }

@@ -16,7 +16,7 @@ namespace SampleConsole
             return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
         }
 
-        public static IList<ConsoleCommand> GetCommands()
+        public static IList<IConsoleCommand> GetCommands()
         {
             return ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
         }

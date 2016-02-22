@@ -15,7 +15,7 @@ namespace ManyConsole.Internal
                 throw new ConsoleHelpAsException("Extra parameters specified: " + String.Join(", ", args.Skip(expectedArgumentCount).ToArray()));
         }
 
-        public static bool DoesArgMatchCommand(string argument, ConsoleCommand command)
+        public static bool DoesArgMatchCommand(string argument, IConsoleCommand command)
         {
             if (argument == null || command == null)
             {

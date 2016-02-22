@@ -13,7 +13,7 @@ namespace SampleConsole
             this.IsCommand("console-mode", "Starts a console interface that allows multiple commands to be run.");
         }
 
-        public override IEnumerable<ConsoleCommand> GetNextCommands()
+        public override IEnumerable<IConsoleCommand> GetNextCommands()
         {
             return Program.GetCommands().Where(c => !(c is ConsoleModeCommand));
         }

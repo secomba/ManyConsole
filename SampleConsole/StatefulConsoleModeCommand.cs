@@ -22,7 +22,7 @@ namespace SampleConsole
             base.WritePromptForCommands();
         }
 
-        public override IEnumerable<ConsoleCommand> GetNextCommands()
+        public override IEnumerable<IConsoleCommand> GetNextCommands()
         {
             return new ConsoleCommand[] {new GetTimeCommand(), new MattsCommand(), new DumpEmlFilesCommand(), new DumpEmlFilesCommand()};
         }

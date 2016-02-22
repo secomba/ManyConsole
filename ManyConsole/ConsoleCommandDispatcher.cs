@@ -9,15 +9,15 @@ namespace ManyConsole
 {
     public class ConsoleCommandDispatcher
     {
-        public static int DispatchCommand(ConsoleCommand command, string[] arguments, TextWriter consoleOut)
+        public static int DispatchCommand(IConsoleCommand command, string[] arguments, TextWriter consoleOut)
         {
             return DispatchCommand(new[] {command}, arguments, consoleOut);
         }
 
-        public static int DispatchCommand(IList<ConsoleCommand> commands, string[] arguments, TextWriter consoleOut,
-            bool skipExeInExpectedUsage = false, ConsoleCommand customHelpCommand = null)
+        public static int DispatchCommand(IList<IConsoleCommand> commands, string[] arguments, TextWriter consoleOut,
+            bool skipExeInExpectedUsage = false, IHelpCommand customHelpCommand = null)
         {
-            ConsoleCommand selectedCommand = null;
+            IConsoleCommand selectedCommand = null;
 
             var console = consoleOut;
 
@@ -52,6 +52,7 @@ namespace ManyConsole
                     if (customHelpCommand != null &&
                         ConsoleUtil.DoesArgMatchCommand(arguments.First(), customHelpCommand))
                     {
+                        customHelpCommand.HelpExplicitlyCalled = true;
                         customHelpCommand.Run(
                             customHelpCommand.GetActualOptions().Parse(arguments.Skip(1)).ToArray());
                         return -1;
@@ -110,7 +111,7 @@ namespace ManyConsole
         }
 
         private static int DealWithException(Exception e, TextWriter console, bool skipExeInExpectedUsage,
-            ConsoleCommand selectedCommand, IEnumerable<ConsoleCommand> commands)
+            IConsoleCommand selectedCommand, IEnumerable<IConsoleCommand> commands)
         {
             if (selectedCommand != null && !selectedCommand.IsHidden)
                 // dont show help for hidden command even after exception
@@ -127,12 +128,12 @@ namespace ManyConsole
             return -1;
         }
 
-        private static ConsoleCommand GetMatchingCommand(IList<ConsoleCommand> command, string name)
+        private static IConsoleCommand GetMatchingCommand(IList<IConsoleCommand> command, string name)
         {
             return command.FirstOrDefault(c => ConsoleUtil.DoesArgMatchCommand(name, c));
         }
 
-        private static void ValidateConsoleCommand(ConsoleCommand command)
+        private static void ValidateConsoleCommand(IConsoleCommand command)
         {
             if (string.IsNullOrEmpty(command.Command))
             {
@@ -149,7 +150,7 @@ namespace ManyConsole
                     parametersRequiredAfterOptions.Value);
         }
 
-        public static IList<ConsoleCommand> FindCommandsInSameAssemblyAs(Type typeInSameAssembly, Func<Type,bool> validateCommandType = null)
+        public static IList<IConsoleCommand> FindCommandsInSameAssemblyAs(Type typeInSameAssembly, Func<Type,bool> validateCommandType = null)
         {
             var assembly = typeInSameAssembly.Assembly;
 
@@ -159,7 +160,7 @@ namespace ManyConsole
                 .Where(t =>  validateCommandType?.Invoke(t) ?? true)
                 .OrderBy(t => t.FullName);
 
-            var result = new List<ConsoleCommand>();
+            var result = new List<IConsoleCommand>();
 
             foreach (var commandType in commandTypes)
             {

@@ -18,7 +18,7 @@ namespace ManyConsole.Tests
                 var firstcommand = new TestCommand().IsCommand("command-a", "oneline description a");
                 var secondCommand = new TestCommand().IsCommand("command-b", "oneline description b");
 
-                var commands = new ConsoleCommand[]
+                var commands = new IConsoleCommand[]
                 {
                     firstcommand,
                     secondCommand
@@ -34,7 +34,7 @@ namespace ManyConsole.Tests
             });
         }
 
-        private void WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(List<ConsoleCommand> commands, StringWriter writer,
+        private void WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(List<IConsoleCommand> commands, StringWriter writer,
                                                                                 ConsoleCommand firstcommand,
                                                                                 ConsoleCommand secondCommand, string[] arguments)
         {
@@ -55,7 +55,7 @@ namespace ManyConsole.Tests
                 });
         }
 
-        private void ShouldShowHelpWhenRequested(List<ConsoleCommand> commands, string[] consoleArguments)
+        private void ShouldShowHelpWhenRequested(List<IConsoleCommand> commands, string[] consoleArguments)
         {
             var writer = new StringWriter();
 

@@ -10,7 +10,7 @@ namespace ManyConsole.Internal
 {
     public class ConsoleHelp
     {
-        public static void ShowSummaryOfCommands(IEnumerable<ConsoleCommand> commands, TextWriter console)
+        public static void ShowSummaryOfCommands(IEnumerable<IConsoleCommand> commands, TextWriter console)
         {
             console.WriteLine();
             console.WriteLine("Available commands are:");
@@ -31,7 +31,7 @@ namespace ManyConsole.Internal
             console.WriteLine();
         }
 
-        public static void ShowCommandHelp(ConsoleCommand selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false)
+        public static void ShowCommandHelp(IConsoleCommand selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false)
         {
             var haveOptions = selectedCommand.GetActualOptions().Count > 0;
 
@@ -60,7 +60,7 @@ namespace ManyConsole.Internal
             console.WriteLine();
         }
 
-        public static void ShowParsedCommand(ConsoleCommand consoleCommand, TextWriter consoleOut)
+        public static void ShowParsedCommand(IConsoleCommand consoleCommand, TextWriter consoleOut)
         {
 
             if (!consoleCommand.TraceCommandAfterParse || consoleCommand.IsHidden)

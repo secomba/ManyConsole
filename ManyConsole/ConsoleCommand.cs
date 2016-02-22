@@ -6,7 +6,7 @@ using NDesk.Options;
 
 namespace ManyConsole
 {
-    public abstract class ConsoleCommand : ConsoleUtil
+    public abstract class ConsoleCommand : ConsoleUtil, IConsoleCommand
     {
         public ConsoleCommand()
         {
