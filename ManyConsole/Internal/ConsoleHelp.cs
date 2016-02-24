@@ -56,7 +56,7 @@ namespace ManyConsole.Internal
             if (haveOptions)
                 console.Write(" <options> ");
 
-            console.WriteLine(selectedCommand.RemainingArgumentsHelpText);
+            console.WriteLine((haveOptions? "":" ") + selectedCommand.RemainingArgumentsHelpText);
 
             if (haveOptions)
             {
