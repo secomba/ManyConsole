@@ -15,7 +15,7 @@ namespace ManyConsole
         }
 
         public static int DispatchCommand(IList<IConsoleCommand> commands, string[] arguments, TextWriter consoleOut,
-            bool skipExeInExpectedUsage = false, IHelpCommand customHelpCommand = null)
+            bool skipExeInExpectedUsage = false, IHelpCommand customHelpCommand = null, bool globallyDisableTraceCommandAfterParse = false)
         {
             IConsoleCommand selectedCommand = null;
 
@@ -91,7 +91,10 @@ namespace ManyConsole
                 if (preResult.HasValue)
                     return preResult.Value;
 
-                ConsoleHelp.ShowParsedCommand(selectedCommand, console);
+                if (!globallyDisableTraceCommandAfterParse)
+                {
+                    ConsoleHelp.ShowParsedCommand(selectedCommand, console);
+                }
 
                 return selectedCommand.Run(remainingArguments.ToArray());
             }
@@ -101,7 +104,13 @@ namespace ManyConsole
                 {
                     if (customHelpCommand != null)
                     {
-                        customHelpCommand.Run(customHelpCommand.GetActualOptions().Parse(arguments).ToArray());
+                        // also use OverrideAfterHandlingArgumentsBeforeRun mechanism for help command
+                        var remainingArguments = customHelpCommand.GetActualOptions().Parse(arguments).ToArray();
+                        var preResult = customHelpCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments);
+                        if (preResult.HasValue)
+                            return preResult.Value;
+
+                        customHelpCommand.Run(remainingArguments);
                         return -1;
                     }
                     return DealWithException(e, console, skipExeInExpectedUsage, selectedCommand, commands);
@@ -175,4 +184,7 @@ namespace ManyConsole
             return result;
         }
     }
+
+
+   
 }
