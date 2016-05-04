@@ -84,7 +84,7 @@ namespace ManyConsole
 
                 selectedCommand.CheckRequiredArguments();
 
-                selectedCommand.CheckSubLevelArguments(remainingArguments.ToArray());
+                selectedCommand.CheckSubLevelArguments(arguments.Skip(1).ToArray());
 
                 CheckRemainingArguments(remainingArguments, selectedCommand.RemainingArgumentsCount);
 
@@ -112,6 +112,9 @@ namespace ManyConsole
                         if (preResult.HasValue)
                             return preResult.Value;
 
+                        // also show manyconsole exception message
+                        console.WriteLine();
+                        console.WriteLine(e.Message);
                         customHelpCommand.Run(remainingArguments);
                         return -1;
                     }

@@ -74,7 +74,7 @@ namespace ManyConsole.Internal
                 return;
             }
 
-            string[] skippedProperties = new []{
+            string[] skippedProperties = {
                 "IsHidden",
                 "Command",
                 "OneLineDescription",
@@ -83,6 +83,7 @@ namespace ManyConsole.Internal
                 "TraceCommandAfterParse",
                 "RemainingArgumentsCount",
                 "RemainingArgumentsHelpText",
+                "ShowHelpWithoutFurtherArgs",
                 "RequiredOptions"
             };
 
