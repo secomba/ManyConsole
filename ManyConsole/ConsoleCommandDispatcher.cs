@@ -84,6 +84,8 @@ namespace ManyConsole
 
                 selectedCommand.CheckRequiredArguments();
 
+                selectedCommand.CheckSubLevelArguments(remainingArguments.ToArray());
+
                 CheckRemainingArguments(remainingArguments, selectedCommand.RemainingArgumentsCount);
 
                 var preResult = selectedCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments.ToArray());

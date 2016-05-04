@@ -25,6 +25,7 @@ namespace ManyConsole
         public string OneLineDescription { get; private set; }
         public HideableOptionSet Options { get; protected set; }
         public bool TraceCommandAfterParse { get; private set; }
+        public bool ShowHelpWithoutFurtherArgs { get; private set; }
         public int? RemainingArgumentsCount { get; private set; }
         public string RemainingArgumentsHelpText { get; private set; }
         private HideableOptionSet OptionsHasd { get; }
@@ -48,6 +49,12 @@ namespace ManyConsole
         public ConsoleCommand AllowsAnyAdditionalArguments(string helpText = "")
         {
             HasAdditionalArguments(null, helpText);
+            return this;
+        }
+
+        public ConsoleCommand RequiresSubLevelArguments()
+        {
+            ShowHelpWithoutFurtherArgs = true;
             return this;
         }
 
@@ -118,6 +125,19 @@ namespace ManyConsole
             if (missingOptions.Any())
             {
                 throw new ConsoleHelpAsException("Missing option: " + String.Join(", ", missingOptions));
+            }
+        }
+
+        public virtual void CheckSubLevelArguments(string[] remainingArguments) 
+        {
+            if (!ShowHelpWithoutFurtherArgs)
+            {
+                return;
+            }
+
+            if (!remainingArguments.Any())
+            {
+                throw new ConsoleHelpAsException("Command '" + FormatCommandName(this.Command) + "' cannot be run without any further arguments.");
             }
         }
 

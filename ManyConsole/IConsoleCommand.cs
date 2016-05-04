@@ -12,6 +12,7 @@ namespace ManyConsole
         string RemainingArgumentsHelpText { get; }
         HideableOptionSet GetActualOptions();
         void CheckRequiredArguments();
+        void CheckSubLevelArguments(string[] remainingArguments);
         int? OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments);
 
     }
