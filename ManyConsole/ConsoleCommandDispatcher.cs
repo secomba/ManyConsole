@@ -53,8 +53,16 @@ namespace ManyConsole
                         ConsoleUtil.DoesArgMatchCommand(arguments.First(), customHelpCommand))
                     {
                         customHelpCommand.HelpExplicitlyCalled = true;
-                        customHelpCommand.Run(
-                            customHelpCommand.GetActualOptions().Parse(arguments.Skip(1)).ToArray());
+                        var helpRemainingArgs = new string[0];
+                        try
+                        {
+                            helpRemainingArgs = customHelpCommand.GetActualOptions().Parse(arguments.Skip(1)).ToArray();
+                        }
+                        catch
+                        {
+                            // ignore parsing errors for help command
+                        }
+                        customHelpCommand.Run(helpRemainingArgs);
                         return -1;
                     }
 
@@ -107,7 +115,15 @@ namespace ManyConsole
                     if (customHelpCommand != null)
                     {
                         // also use OverrideAfterHandlingArgumentsBeforeRun mechanism for help command
-                        var remainingArguments = customHelpCommand.GetActualOptions().Parse(arguments).ToArray();
+                        var remainingArguments = new string[0];
+                        try
+                        {
+                            remainingArguments = customHelpCommand.GetActualOptions().Parse(arguments).ToArray();
+
+                        } catch {
+                            // ignore parsing errors for help command
+                        }
+
                         var preResult = customHelpCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments);
                         if (preResult.HasValue)
                             return preResult.Value;
