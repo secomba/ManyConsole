@@ -17,6 +17,11 @@ namespace ManyConsole
         public static int DispatchCommand(IList<IConsoleCommand> commands, string[] arguments, TextWriter consoleOut,
             bool skipExeInExpectedUsage = false, IHelpCommand customHelpCommand = null, bool globallyDisableTraceCommandAfterParse = false)
         {
+            if (customHelpCommand != null)
+            {
+                customHelpCommand.SkipExeInExpectedUsage = skipExeInExpectedUsage;
+            }
+
             IConsoleCommand selectedCommand = null;
 
             var console = consoleOut;
@@ -62,8 +67,7 @@ namespace ManyConsole
                         {
                             // ignore parsing errors for help command
                         }
-                        customHelpCommand.Run(helpRemainingArgs);
-                        return -1;
+                        return customHelpCommand.Run(helpRemainingArgs);
                     }
 
                     if (arguments.First().Equals("help", StringComparison.InvariantCultureIgnoreCase))
@@ -131,8 +135,8 @@ namespace ManyConsole
                         // also show manyconsole exception message
                         console.WriteLine();
                         console.WriteLine(e.Message);
-                        customHelpCommand.Run(remainingArguments);
-                        return -1;
+                        
+                        return customHelpCommand.Run(remainingArguments);
                     }
                     return DealWithException(e, console, skipExeInExpectedUsage, selectedCommand, commands);
                 }

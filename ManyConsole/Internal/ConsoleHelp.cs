@@ -10,6 +10,7 @@ namespace ManyConsole.Internal
 {
     public class ConsoleHelp
     {
+        
         public static void ShowSummaryOfCommands(IEnumerable<IConsoleCommand> commands, TextWriter console, string summaryTitle = null)
         {
             console.WriteLine();
@@ -26,17 +27,41 @@ namespace ManyConsole.Internal
 
             var commandList = commands.Where(it => !it.IsHidden).ToList();
             var n = commandList.Select(c => ConsoleUtil.FormatCommandName(c.Command)).Concat(new [] { helpCommand}).Max(c => c.Length) + 1;
-            var commandFormatString = "    {0,-" + n + "}- {1}";
-
             foreach (var command in commandList)
             {
-                console.WriteLine(commandFormatString, ConsoleUtil.FormatCommandName(command.Command), command.OneLineDescription);
+                // don't exceed console window with
+                PrintCommandConsoleFriendly(console, ConsoleUtil.FormatCommandName(command.Command), command.OneLineDescription, n);
             }
             console.WriteLine();
-            console.WriteLine(commandFormatString, helpCommand, "For help with one of the above commands");
+            PrintCommandConsoleFriendly(console, helpCommand, "For help with one of the above commands", n);
             console.WriteLine();
         }
 
+
+        private static void PrintCommandConsoleFriendly(TextWriter console, string commandName, string oneLineDescription, int offset, Func<int, string> getFormatString = null)
+        {
+            var intendation = offset + 3;
+            var minWordLength = 6;
+            var commandFormatString = getFormatString?.Invoke(offset) ?? "    {0,-" + offset + "}- {1}";
+            var prefix = new String(' ', intendation);
+            var commandStrings = ConsoleUtil.SplitStringHumanReadable(string.Format(commandFormatString, commandName,
+               oneLineDescription), ConsoleUtil.ConsoleWidth, splitpattern: null);
+
+            console.WriteLine(commandStrings.First());
+
+            foreach (var commandString in commandStrings.Skip(1)) {
+
+                if (ConsoleUtil.ConsoleWidth - intendation > minWordLength)
+                {
+                    var secondLineCommandStrings = ConsoleUtil.SplitStringHumanReadable(commandString, ConsoleUtil.ConsoleWidth - intendation, splitpattern: null);
+                    secondLineCommandStrings.ForEach(it => console.WriteLine(prefix + it));
+                }
+                else
+                {
+                    console.WriteLine(prefix + commandString);
+                }
+            }
+        }
         public static void ShowCommandHelp(IConsoleCommand selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false)
         {
             var haveOptions = selectedCommand.GetActualOptions().Count > 0;
@@ -111,12 +136,16 @@ namespace ManyConsole.Internal
             string introLine = String.Format("Executing {0}", ConsoleUtil.FormatCommandName(consoleCommand.Command));
 
             if (string.IsNullOrEmpty(consoleCommand.OneLineDescription))
+            {
                 introLine = introLine + ":";
+                Console.WriteLine(introLine);
+            }
             else
-                introLine = introLine + " (" + consoleCommand.OneLineDescription + "):";
+            {
+                var description =  consoleCommand.OneLineDescription;
+                PrintCommandConsoleFriendly(consoleOut, introLine, description, introLine.Length, offset => "{0} ({1}):");
+            }
 
-            consoleOut.WriteLine(introLine);
-            
             foreach(var value in allValuesToTrace.OrderBy(k => k.Key))
                 consoleOut.WriteLine("    " + value.Key + " : " + value.Value);
 
