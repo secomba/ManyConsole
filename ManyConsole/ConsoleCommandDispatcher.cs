@@ -118,6 +118,7 @@ namespace ManyConsole
                 {
                     if (customHelpCommand != null)
                     {
+                        customHelpCommand.FailureReason = e;
                         // also use OverrideAfterHandlingArgumentsBeforeRun mechanism for help command
                         var remainingArguments = new string[0];
                         try
