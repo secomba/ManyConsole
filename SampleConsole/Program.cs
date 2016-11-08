@@ -13,12 +13,33 @@ namespace SampleConsole
             var commands = GetCommands();
 
             // then run them.
-            return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
+            Environment.ExitCode =  ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out, customHelpCommand: new HelpCommand());
+            return Environment.ExitCode;
         }
 
         public static IList<IConsoleCommand> GetCommands()
         {
             return ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
+        }
+    }
+
+
+    class HelpCommand : ConsoleCommand, IHelpCommand
+    {
+
+        public HelpCommand()
+        {
+            IsCommand("h|help");
+            AllowsAnyAdditionalArguments();
+        }
+        public bool HelpExplicitlyCalled { get; set; }
+        public bool SkipExeInExpectedUsage { get; set; }
+        public Exception FailureReason { get; set; }
+
+        public override int Run(string[] remainingArguments)
+        {
+            Console.WriteLine(string.Join(", ", remainingArguments));
+            return 4;
         }
     }
 }
