@@ -69,6 +69,13 @@ namespace ManyConsole.Internal
             console.WriteLine();
             console.WriteLine("'" + ConsoleUtil.FormatCommandName(selectedCommand.Command) + "' - " + selectedCommand.OneLineDescription);
             console.WriteLine();
+
+            if (!string.IsNullOrEmpty(selectedCommand.LongDescription))
+            {
+                console.WriteLine(selectedCommand.LongDescription);
+                console.WriteLine();
+            }
+
             console.Write("Expected usage:");
 
             if (!skipExeInExpectedUsage)
@@ -103,6 +110,7 @@ namespace ManyConsole.Internal
                 "IsHidden",
                 "Command",
                 "OneLineDescription",
+                "LongDescription",
                 "Options",
                 "Console",
                 "TraceCommandAfterParse",

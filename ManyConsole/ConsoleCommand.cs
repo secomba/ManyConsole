@@ -23,6 +23,7 @@ namespace ManyConsole
 
         public string Command { get; private set; }
         public string OneLineDescription { get; private set; }
+        public string LongDescription { get; private set; }
         public HideableOptionSet Options { get; protected set; }
         public bool TraceCommandAfterParse { get; private set; }
         public bool ShowHelpWithoutFurtherArgs { get; private set; }
@@ -36,6 +37,12 @@ namespace ManyConsole
             Command = command;
             OneLineDescription = oneLineDescription;
             IsHidden = hidden;
+            return this;
+        }
+
+        public ConsoleCommand HasLongDescription(string longDescription)
+        {
+            LongDescription = longDescription;
             return this;
         }
 
@@ -128,7 +135,7 @@ namespace ManyConsole
             }
         }
 
-        public virtual void CheckSubLevelArguments(string[] remainingArguments) 
+        public virtual void CheckSubLevelArguments(string[] remainingArguments)
         {
             if (!ShowHelpWithoutFurtherArgs)
             {
