@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ManyConsole;
 
 namespace SampleConsole
@@ -22,7 +20,7 @@ namespace SampleConsole
             base.WritePromptForCommands();
         }
 
-        public override IEnumerable<IConsoleCommand> GetNextCommands()
+        public override IEnumerable<IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>> GetNextCommands()
         {
             return new ConsoleCommand[] {new GetTimeCommand(), new MattsCommand(), new DumpEmlFilesCommand(), new DumpEmlFilesCommand()};
         }

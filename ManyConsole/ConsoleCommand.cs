@@ -6,7 +6,9 @@ using NDesk.Options;
 
 namespace ManyConsole
 {
-    public abstract class ConsoleCommand : ConsoleUtil, IConsoleCommand
+
+    public abstract class ConsoleCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings> { }
+    public abstract class ConsoleCommand<TResult, TSettings> : ConsoleUtil, IConsoleCommand<TResult, TSettings> where TResult : ICommandResult where TSettings : ICommandSettings
     {
         public ConsoleCommand()
         {
@@ -32,7 +34,7 @@ namespace ManyConsole
         private HideableOptionSet OptionsHasd { get; }
         private List<RequiredOptionRecord> RequiredOptions { get; }
 
-        public ConsoleCommand IsCommand(string command, string oneLineDescription = "", bool hidden = false)
+        public ConsoleCommand<TResult, TSettings> IsCommand(string command, string oneLineDescription = "", bool hidden = false)
         {
             Command = command;
             OneLineDescription = oneLineDescription;
@@ -40,58 +42,58 @@ namespace ManyConsole
             return this;
         }
 
-        public ConsoleCommand HasLongDescription(string longDescription)
+        public ConsoleCommand<TResult, TSettings> HasLongDescription(string longDescription)
         {
             LongDescription = longDescription;
             return this;
         }
 
-        public ConsoleCommand HasAdditionalArguments(int? count = 0, string helpText = "")
+        public ConsoleCommand<TResult, TSettings> HasAdditionalArguments(int? count = 0, string helpText = "")
         {
             RemainingArgumentsCount = count;
             RemainingArgumentsHelpText = helpText;
             return this;
         }
 
-        public ConsoleCommand AllowsAnyAdditionalArguments(string helpText = "")
+        public ConsoleCommand<TResult, TSettings> AllowsAnyAdditionalArguments(string helpText = "")
         {
             HasAdditionalArguments(null, helpText);
             return this;
         }
 
-        public ConsoleCommand RequiresSubLevelArguments()
+        public ConsoleCommand<TResult, TSettings> RequiresSubLevelArguments()
         {
             ShowHelpWithoutFurtherArgs = true;
             return this;
         }
 
-        public ConsoleCommand SkipsCommandSummaryBeforeRunning()
+        public ConsoleCommand<TResult, TSettings> SkipsCommandSummaryBeforeRunning()
         {
             TraceCommandAfterParse = false;
             return this;
         }
 
-        public ConsoleCommand HasOption(string prototype, string description, Action<string> action, bool hidden = false)
+        public ConsoleCommand<TResult, TSettings> HasOption(string prototype, string description, Action<string> action, bool hidden = false)
         {
             OptionsHasd.Add(prototype, description, action, hidden);
 
             return this;
         }
 
-        public ConsoleCommand HasRequiredOption(string prototype, string description, Action<string> action)
+        public ConsoleCommand<TResult, TSettings> HasRequiredOption(string prototype, string description, Action<string> action)
         {
             HasRequiredOption<string>(prototype, description, action);
 
             return this;
         }
 
-        public ConsoleCommand HasOption<T>(string prototype, string description, Action<T> action, bool hidden = false)
+        public ConsoleCommand<TResult, TSettings> HasOption<T>(string prototype, string description, Action<T> action, bool hidden = false)
         {
             OptionsHasd.Add(prototype, description, action, hidden);
             return this;
         }
 
-        public ConsoleCommand HasRequiredOption<T>(string prototype, string description, Action<T> action)
+        public ConsoleCommand<TResult, TSettings> HasRequiredOption<T>(string prototype, string description, Action<T> action)
         {
             var requiredRecord = new RequiredOptionRecord();
 
@@ -112,13 +114,13 @@ namespace ManyConsole
             return this;
         }
 
-        public ConsoleCommand HasOption(string prototype, string description, OptionAction<string, string> action, bool hidden = false)
+        public ConsoleCommand<TResult, TSettings> HasOption(string prototype, string description, OptionAction<string, string> action, bool hidden = false)
         {
             OptionsHasd.Add(prototype, description, action, hidden);
             return this;
         }
 
-        public ConsoleCommand HasOption<TKey, TValue>(string prototype, string description, OptionAction<TKey, TValue> action, bool hidden = false)
+        public ConsoleCommand<TResult, TSettings> HasOption<TKey, TValue>(string prototype, string description, OptionAction<TKey, TValue> action, bool hidden = false)
         {
             OptionsHasd.Add(prototype, description, action, hidden);
             return this;
@@ -148,12 +150,13 @@ namespace ManyConsole
             }
         }
 
-        public virtual int? OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments)
+        public virtual TResult OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments, out bool cancel)
         {
-            return null;
+            cancel = false;
+            return default(TResult);
         }
 
-        public abstract int Run(string[] remainingArguments);
+        public abstract TResult Run(string[] remainingArguments, ref TSettings settings);
 
         public HideableOptionSet GetActualOptions()
         {

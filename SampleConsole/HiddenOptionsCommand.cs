@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ManyConsole;
 
 namespace SampleConsole {
@@ -20,10 +17,9 @@ namespace SampleConsole {
             HasOption("another-hidden-option|a=", "this is another hidden option. you shouldn't see this text :D", s => AnotherHiddenOption = s, hidden:true);
 
         }
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
             Console.WriteLine($"NormalOption: {NormalOption}, HiddenOption: {HiddenOption}, AnotherHiddenOption: {AnotherHiddenOption}");
-            return 0;
+            return new DefaultCommandResult();
         }
     }
 }

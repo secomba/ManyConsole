@@ -9,10 +9,9 @@ namespace SampleConsole {
             IsCommand("hidden-command", "this command is hidden so this line should NEVER BE SEEN on the console", hidden:true);
 
         }
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
             Console.WriteLine("I was hidden, yet I'm running as you see ;)");
-            return 0;
+            return new DefaultCommandResult();
         }
     }
 }

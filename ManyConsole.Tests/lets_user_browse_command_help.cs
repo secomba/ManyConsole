@@ -18,7 +18,7 @@ namespace ManyConsole.Tests
                 var firstcommand = new TestCommand().IsCommand("command-a", "oneline description a");
                 var secondCommand = new TestCommand().IsCommand("command-b", "oneline description b");
 
-                var commands = new IConsoleCommand[]
+                var commands = new IConsoleCommand<DefaultCommandResult>[]
                 {
                     firstcommand,
                     secondCommand
@@ -34,13 +34,13 @@ namespace ManyConsole.Tests
             });
         }
 
-        private void WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(List<IConsoleCommand> commands, StringWriter writer,
-                                                                                ConsoleCommand firstcommand,
-                                                                                ConsoleCommand secondCommand, string[] arguments)
+        private void WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(List<IConsoleCommand<DefaultCommandResult>> commands, StringWriter writer,
+                                                                                ConsoleCommand<DefaultCommandResult> firstcommand,
+                                                                                ConsoleCommand<DefaultCommandResult> secondCommand, string[] arguments)
         {
             when("the user does not specify a command", delegate
                 {
-                    arrange(() => ConsoleCommandDispatcher.DispatchCommand(commands, arguments, writer));
+                    arrange(() => ConsoleCommandDispatcher.DispatchCommand(commands, arguments, new DefaultCommandSettings(writer)));
 
                     then("the output contains a list of available commands", delegate
                         {
@@ -55,7 +55,7 @@ namespace ManyConsole.Tests
                 });
         }
 
-        private void ShouldShowHelpWhenRequested(List<IConsoleCommand> commands, string[] consoleArguments)
+        private void ShouldShowHelpWhenRequested(List<IConsoleCommand<DefaultCommandResult>> commands, string[] consoleArguments)
         {
             var writer = new StringWriter();
 
@@ -77,7 +77,7 @@ deserunt mollit anim id est laborum.")
 
                 commands.Add(commandC);
 
-                var exitCode = arrange(() => ConsoleCommandDispatcher.DispatchCommand(commands, consoleArguments, writer));
+                var exitCode = arrange(() => ConsoleCommandDispatcher.DispatchCommand(commands, consoleArguments, new DefaultCommandSettings(writer)).ExitCode);
 
                 then("the output contains a all help available for that command", delegate
                 {

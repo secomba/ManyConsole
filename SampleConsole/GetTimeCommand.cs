@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ManyConsole;
 
 namespace SampleConsole
@@ -16,11 +13,10 @@ namespace SampleConsole
             this.IsCommand("get-time", "Returns the current system time.");
         }
 
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
             Console.WriteLine(DateTime.UtcNow);
 
-            return 0;
+            return new DefaultCommandResult();
         }
     }
 }

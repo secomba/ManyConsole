@@ -6,27 +6,40 @@ using ManyConsole.Internal;
 
 namespace ManyConsole
 {
-    public class ConsoleModeCommand : ConsoleCommand
+
+    public class ConsoleModeCommand : ConsoleModeCommand<DefaultCommandResult, DefaultCommandSettings>
+    {
+        public ConsoleModeCommand(TextWriter outputStream = null, TextReader inputStream = null, HideableOptionSet options = null) : base(outputStream, inputStream, options)
+        {
+        }
+
+        [Obsolete("Its preferred to override methods on ConsoleModeCommand and use the shorter constructor.")]
+
+        public ConsoleModeCommand(Func<IEnumerable<IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>>> commandSource, TextWriter outputStream = null, TextReader inputStream = null, string friendlyContinueText = null, HideableOptionSet options = null) : base(commandSource, outputStream, inputStream, friendlyContinueText, options)
+        {
+        }
+    }
+    public class ConsoleModeCommand<TResult, TSettings> : ConsoleCommand<TResult, TSettings> where TResult : ICommandResult, new () where TSettings : ICommandSettings, new()
     {
         private readonly TextReader _inputStream;
         private readonly TextWriter _outputStream;
         IConsoleRedirectionDetection _redirectionDetector = new ConsoleRedirectionDetection();
         public static string FriendlyContinuePrompt = "Enter a command or 'x' to exit or '?' for help";
-        readonly Func<IEnumerable<IConsoleCommand>> _commandSource;
+        readonly Func<IEnumerable<IConsoleCommand<TResult, TSettings>>> _commandSource;
         private string _continuePrompt;
 
         public ConsoleModeCommand(
             TextWriter outputStream = null,
             TextReader inputStream = null,
             HideableOptionSet options = null)
-            : this(() => new ConsoleCommand[0], outputStream, inputStream, null, options)
+            : this(() => new ConsoleCommand<TResult, TSettings>[0], outputStream, inputStream, null, options)
         {
-            _commandSource = () => new ConsoleCommand[0];
+            _commandSource = () => new ConsoleCommand<TResult, TSettings>[0];
         }
 
         [Obsolete("Its preferred to override methods on ConsoleModeCommand and use the shorter constructor.")]
         public ConsoleModeCommand(
-            Func<IEnumerable<IConsoleCommand>> commandSource,
+            Func<IEnumerable<IConsoleCommand<TResult, TSettings>>> commandSource,
             TextWriter outputStream = null,
             TextReader inputStream = null,
             string friendlyContinueText = null,
@@ -42,7 +55,7 @@ namespace ManyConsole
             _commandSource = () =>
             {
                 var commands = commandSource();
-                return commands.Where(c => !(c is ConsoleModeCommand));  // don't cross the beams
+                return commands.Where(c => !(c is ConsoleModeCommand<TResult, TSettings>));  // don't cross the beams
             };
 
             _continuePrompt = friendlyContinueText ?? FriendlyContinuePrompt;
@@ -61,13 +74,12 @@ namespace ManyConsole
         /// Runs to get the next available commands
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerable<IConsoleCommand> GetNextCommands()
+        public virtual IEnumerable<IConsoleCommand<TResult, TSettings>> GetNextCommands()
         {
             return _commandSource();
         }
 
-        public override int Run(string[] remainingArguments)
-        {
+        public override TResult Run(string[] remainingArguments, ref TSettings settings) {
             string[] args;
 
             bool isInputRedirected = _redirectionDetector.IsInputRedirected();
@@ -90,8 +102,8 @@ namespace ManyConsole
                 {
                     args = CommandLineParser.Parse(input);
 
-                    var result = ConsoleCommandDispatcher.DispatchCommand(GetNextCommands().ToList(), args, _outputStream, true);
-                    if (result != 0)
+                    var result = ConsoleCommandDispatcher<TResult, TSettings>.DispatchCommand(GetNextCommands().ToList(), args, new TSettings {ConsoleOut = _outputStream});
+                    if (result.ExitCode != 0)
                     {
                         haveError = true;
 
@@ -113,7 +125,7 @@ namespace ManyConsole
                 input = _inputStream.ReadLine();
             }
 
-            return haveError ? -1 : 0;
+            return haveError ? new TResult {ExitCode = -1} : new TResult { ExitCode = 0};
         }
 
         public void SetConsoleRedirectionDetection(IConsoleRedirectionDetection consoleRedirectionDetection)

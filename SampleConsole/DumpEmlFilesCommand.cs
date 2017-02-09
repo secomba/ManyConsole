@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using ManyConsole;
-using NDesk.Options;
 
 namespace SampleConsole
 {
@@ -24,8 +22,7 @@ namespace SampleConsole
         public bool Recursive;
         public List<string> HeadersToPrint = new List<string>();
 
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
             Path = remainingArguments[0];
 
             if (File.Exists(Path))
@@ -41,7 +38,7 @@ namespace SampleConsole
                 throw new Exception("Could not find file or directory at " + Path);
             }
 
-            return 0;
+            return new DefaultCommandResult();
         }
 
         private void PrintEmlDirectory(string directory)

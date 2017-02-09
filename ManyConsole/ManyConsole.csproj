@@ -49,6 +49,8 @@
     <Compile Include="ConsoleModeCommand.cs" />
     <Compile Include="HideableOptionSet.cs" />
     <Compile Include="HideableActionOption.cs" />
+    <Compile Include="ICommandResult.cs" />
+    <Compile Include="ICommandSettings.cs" />
     <Compile Include="IConsoleCommand.cs" />
     <Compile Include="IHelpCommand.cs" />
     <Compile Include="Internal\ConsoleHelp.cs" />

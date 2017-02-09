@@ -21,8 +21,8 @@ namespace ManyConsole.Tests
             {
                 var lastError = arrange(() => ConsoleCommandDispatcher.DispatchCommand(
                     new ConsoleCommand[] { new SomeCommandWithAParameter() }, 
-                    new[] { "some", "/a" }, 
-                    trace));
+                    new[] { "some", "/a" },
+                    new DefaultCommandSettings(trace)).ExitCode);
                 
                 then("the error output gives the error message and typical help", delegate
                 {
@@ -42,8 +42,7 @@ namespace ManyConsole.Tests
                 {
                     Assert.Throws<InvalidAsynchronousStateException>(() => ConsoleCommandDispatcher.DispatchCommand(
                         new ConsoleCommand[] { new SomeCommandThrowingAnException(), },
-                        new string[0],
-                        trace));
+                        new string[0], new DefaultCommandSettings(trace)));
                 });
             });
         }
@@ -56,9 +55,8 @@ namespace ManyConsole.Tests
                 this.HasOption("a=", "a parameter", v => {});
             }
 
-            public override int Run(string[] remainingArguments)
-            {
-                return 0;
+            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
+                return new DefaultCommandResult();
             }
         }
         
@@ -69,8 +67,7 @@ namespace ManyConsole.Tests
                 this.IsCommand("some");
             }
 
-            public override int Run(string[] remainingArguments)
-            {
+            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
                 throw new InvalidAsynchronousStateException();
             }
         }

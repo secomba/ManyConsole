@@ -15,11 +15,10 @@ namespace SampleConsole {
 
         public string A;
         public string B;
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
             Debug.Assert((A ?? B) != null);
             Console.WriteLine("I was hidden, yet I'm running as you see ;)");
-            return 0;
+            return new DefaultCommandResult();
         }
     }
 }

@@ -19,10 +19,10 @@ namespace ManyConsole.Tests
 
                 arrange(delegate
                 {
-                    ConsoleCommandDispatcher.DispatchCommand(SomeProgram.GetCommands(trace), new[] { "move", "-x", "1", "-y", "2" }, new StringWriter());
-                    ConsoleCommandDispatcher.DispatchCommand(SomeProgram.GetCommands(trace), new[] { "move", "-x", "3" }, new StringWriter());
-                    ConsoleCommandDispatcher.DispatchCommand(SomeProgram.GetCommands(trace), new[] { "move", "-y", "4" }, new StringWriter());
-                    ConsoleCommandDispatcher.DispatchCommand(SomeProgram.GetCommands(trace), new[] { "move" }, new StringWriter());
+                    ConsoleCommandDispatcher.DispatchCommand(SomeProgram.GetCommands(trace), new[] { "move", "-x", "1", "-y", "2" }, new DefaultCommandSettings(new StringWriter()));
+                    ConsoleCommandDispatcher.DispatchCommand(SomeProgram.GetCommands(trace), new[] { "move", "-x", "3" }, new DefaultCommandSettings(new StringWriter()));
+                    ConsoleCommandDispatcher.DispatchCommand(SomeProgram.GetCommands(trace), new[] { "move", "-y", "4" }, new DefaultCommandSettings(new StringWriter()));
+                    ConsoleCommandDispatcher.DispatchCommand(SomeProgram.GetCommands(trace), new[] { "move" }, new DefaultCommandSettings(new StringWriter()));
                 });
 
                 then("all parameters are evaluated independently", delegate
@@ -67,10 +67,9 @@ namespace ManyConsole.Tests
             public int X;
             public int Y;
 
-            public override int Run(string[] remainingArguments)
-            {
+            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
                 _recorder.WriteLine("You walk to {0}, {1} and find a maze of twisty little passages, all alike.", X, Y);
-                return 0;
+                return new DefaultCommandResult();
             }
         }
     }

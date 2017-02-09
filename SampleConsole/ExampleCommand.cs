@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ManyConsole;
-using NDesk.Options;
 
 namespace MC.AX.DataUtility
 {
@@ -62,8 +61,7 @@ namespace MC.AX.DataUtility
         public bool BooleanOption;
         public List<string> OptionalArgumentList = new List<string>();
 
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
             Argument1 = remainingArguments[0];
             Argument2 = remainingArguments[1];
 
@@ -76,7 +74,7 @@ namespace MC.AX.DataUtility
                 throw new Exception("Throwing unhandled exception because BooleanOption is true");
             }
 
-            return 0;
+            return new DefaultCommandResult();
         }
     }
 }

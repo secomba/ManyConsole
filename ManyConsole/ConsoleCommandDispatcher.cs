@@ -8,24 +8,25 @@ using NDesk.Options;
 
 namespace ManyConsole
 {
-    public class ConsoleCommandDispatcher
+
+    public class ConsoleCommandDispatcher : ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>
     {
-        public static int DispatchCommand(IConsoleCommand command, string[] arguments, TextWriter consoleOut)
+    }
+
+    public class ConsoleCommandDispatcher<TResult, TSettings> where TResult: ICommandResult, new() where TSettings : ICommandSettings, new()
+    {
+        public static TResult DispatchCommand(IConsoleCommand<TResult, TSettings> command, string[] arguments, TextWriter consoleOut)
         {
-            return DispatchCommand(new[] {command}, arguments, consoleOut);
+            return DispatchCommand(new[] {command}, arguments, new TSettings {ConsoleOut = consoleOut});
         }
 
-        public static int DispatchCommand(IList<IConsoleCommand> commands, string[] arguments, TextWriter consoleOut,
-            bool skipExeInExpectedUsage = false, IHelpCommand customHelpCommand = null, bool globallyDisableTraceCommandAfterParse = false)
-        {
+        public static TResult DispatchCommand(IList<IConsoleCommand<TResult, TSettings>> commands, string[] arguments, TSettings settings, IHelpCommand<TResult, TSettings> customHelpCommand = null ) {
             if (customHelpCommand != null)
             {
-                customHelpCommand.SkipExeInExpectedUsage = skipExeInExpectedUsage;
+                customHelpCommand.SkipExeInExpectedUsage = settings.SkipExeInExpectedUsage;
             }
 
-            IConsoleCommand selectedCommand = null;
-
-            var console = consoleOut;
+            IConsoleCommand<TResult, TSettings> selectedCommand = null;
 
             foreach (var command in commands)
             {
@@ -68,7 +69,7 @@ namespace ManyConsole
                         {
                             // ignore parsing errors for help command
                         }
-                        return customHelpCommand.Run(helpRemainingArgs);
+                        return customHelpCommand.Run(helpRemainingArgs, ref settings);
                     }
 
                     if (arguments.First().Equals("help", StringComparison.InvariantCultureIgnoreCase))
@@ -78,13 +79,13 @@ namespace ManyConsole
 
                         if (selectedCommand == null)
                         {
-                            ConsoleHelp.ShowSummaryOfCommands(commands, console);
+                            ConsoleHelp.ShowSummaryOfCommands(commands, settings.ConsoleOut);
                         }
                         else
                         {
-                            ConsoleHelp.ShowCommandHelp(selectedCommand, console, skipExeInExpectedUsage);
+                            ConsoleHelp.ShowCommandHelp(selectedCommand, settings.ConsoleOut, settings.SkipExeInExpectedUsage);
                         }
-                        return -1;
+                        return new TResult {ExitCode = -1};
                     }
 
                     selectedCommand = GetMatchingCommand(commands, arguments.First());
@@ -101,17 +102,18 @@ namespace ManyConsole
 
                 CheckRemainingArguments(remainingArguments, selectedCommand.RemainingArgumentsCount);
 
-                var preResult = selectedCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments.ToArray());
+                bool cancel;
+                var preResult = selectedCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments.ToArray(), out cancel);
 
-                if (preResult.HasValue)
-                    return preResult.Value;
+                if (cancel)
+                    return preResult;
 
-                if (!globallyDisableTraceCommandAfterParse)
+                if (!settings.GloballyDisableTraceCommandAfterParse)
                 {
-                    ConsoleHelp.ShowParsedCommand(selectedCommand, console);
+                    ConsoleHelp.ShowParsedCommand(selectedCommand, settings.ConsoleOut);
                 }
 
-                return selectedCommand.Run(remainingArguments.ToArray());
+                return selectedCommand.Run(remainingArguments.ToArray(), ref settings);
             }
             catch (Exception e)
             {
@@ -129,25 +131,25 @@ namespace ManyConsole
                         } catch {
                             // ignore parsing errors for help command
                         }
-
-                        var preResult = customHelpCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments);
-                        if (preResult.HasValue)
-                            return preResult.Value;
+                        bool cancel;
+                        var preResult = customHelpCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments, out cancel);
+                        if (cancel)
+                            return preResult;
 
                         // also show manyconsole exception message
-                        console.WriteLine();
-                        console.WriteLine(e.Message);
+                        settings.ConsoleOut.WriteLine();
+                        settings.ConsoleOut.WriteLine(e.Message);
                         
-                        return customHelpCommand.Run(remainingArguments);
+                        return customHelpCommand.Run(remainingArguments, ref settings);
                     }
-                    return DealWithException(e, console, skipExeInExpectedUsage, selectedCommand, commands);
+                    return DealWithException(e, settings.ConsoleOut, settings.SkipExeInExpectedUsage, selectedCommand, commands);
                 }
                 throw;
             }
         }
 
-        private static int DealWithException(Exception e, TextWriter console, bool skipExeInExpectedUsage,
-            IConsoleCommand selectedCommand, IEnumerable<IConsoleCommand> commands)
+        private static TResult DealWithException(Exception e, TextWriter console, bool skipExeInExpectedUsage,
+            IConsoleCommand<TResult, TSettings> selectedCommand, IEnumerable<IConsoleCommand<TResult, TSettings>> commands)
         {
             if (selectedCommand != null && !selectedCommand.IsHidden)
                 // dont show help for hidden command even after exception
@@ -160,16 +162,16 @@ namespace ManyConsole
             {
                 ConsoleHelp.ShowSummaryOfCommands(commands, console);
             }
-
-            return -1;
+            
+            return new TResult {ExitCode = -1};
         }
 
-        private static IConsoleCommand GetMatchingCommand(IList<IConsoleCommand> command, string name)
+        private static IConsoleCommand<TResult, TSettings> GetMatchingCommand(IList<IConsoleCommand<TResult, TSettings>> command, string name)
         {
             return command.FirstOrDefault(c => ConsoleUtil.DoesArgMatchCommand(name, c));
         }
 
-        private static void ValidateConsoleCommand(IConsoleCommand command)
+        private static void ValidateConsoleCommand(IConsoleCommand<TResult, TSettings> command)
         {
             if (string.IsNullOrEmpty(command.Command))
             {
@@ -186,20 +188,20 @@ namespace ManyConsole
                     parametersRequiredAfterOptions.Value);
         }
 
-        public static IList<IConsoleCommand> FindCommandsInSameAssemblyAs(Type typeInSameAssembly, Func<Type,bool> validateCommandType = null)
+        public static IList<IConsoleCommand<TResult, TSettings>> FindCommandsInSameAssemblyAs(Type typeInSameAssembly, Func<Type,bool> validateCommandType = null)
         {
             if (typeInSameAssembly == null)
                 throw new ArgumentNullException("typeInSameAssembly");
 
-            return FindCommandsInAssembly(typeInSameAssembly.Assembly);
+            return FindCommandsInAssembly(typeInSameAssembly.Assembly, validateCommandType);
         }
 
-        public static IEnumerable<ConsoleCommand> FindCommandsInAllLoadedAssemblies()
+        public static IList<IConsoleCommand<TResult, TSettings>> FindCommandsInAllLoadedAssemblies(Func<Type, bool> validateCommandType = null)
         {
-            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(FindCommandsInAssembly);
+            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(it => FindCommandsInAssembly(it, validateCommandType)).ToList();
         }
 
-        public static IEnumerable<ConsoleCommand> FindCommandsInAssembly(Assembly assembly)
+        public static IList<IConsoleCommand<TResult, TSettings>> FindCommandsInAssembly(Assembly assembly, Func<Type, bool> validateCommandType = null)
         {
             if (assembly == null)
                 throw new ArgumentNullException("assembly");
@@ -210,7 +212,7 @@ namespace ManyConsole
                 .Where(t =>  validateCommandType?.Invoke(t) ?? true)
                 .OrderBy(t => t.FullName);
 
-            var result = new List<IConsoleCommand>();
+            var result = new List<IConsoleCommand<TResult, TSettings>>();
 
             foreach (var commandType in commandTypes)
             {
@@ -219,13 +221,10 @@ namespace ManyConsole
                 if (constructor == null)
                     continue;
 
-                result.Add((ConsoleCommand) constructor.Invoke(new object[] {}));
+                result.Add((ConsoleCommand<TResult, TSettings>) constructor.Invoke(new object[] {}));
             }
 
             return result;
         }
     }
-
-
-   
 }

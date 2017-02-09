@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ManyConsole;
 
 namespace SampleConsole
@@ -13,9 +11,9 @@ namespace SampleConsole
             this.IsCommand("console-mode", "Starts a console interface that allows multiple commands to be run.");
         }
 
-        public override IEnumerable<IConsoleCommand> GetNextCommands()
+        public override IEnumerable<IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>> GetNextCommands()
         {
-            return Program.GetCommands().Where(c => !(c is ConsoleModeCommand));
+            return Program.GetCommands().Where(c => !(c is ConsoleModeCommand<DefaultCommandResult, DefaultCommandSettings>)) as IEnumerable<IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>>;
         }
     }
 }

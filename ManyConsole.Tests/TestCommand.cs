@@ -9,9 +9,9 @@ namespace ManyConsole.Tests
     {
         public Func<int> Action = delegate { return 0; };
 
-        public override int Run(string[] remainingArguments)
+        public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings)
         {
-            return Action();
+            return new DefaultCommandResult() {ExitCode = Action()};
         }
     }
 }

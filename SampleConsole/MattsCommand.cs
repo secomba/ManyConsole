@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ManyConsole;
 
 namespace SampleConsole
@@ -16,11 +13,10 @@ namespace SampleConsole
             this.HasOption("b|baz=", "baz", v => Baz = v);
             AllowsAnyAdditionalArguments("<foo1> <foo2> <fooN> where N is bar");
         }
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
             Console.WriteLine("baz is " + (Baz ?? "<null>"));
             Console.WriteLine("foos are: " + String.Join(", ", remainingArguments));
-            return 0;
+            return new DefaultCommandResult();
         }
     }
 }

@@ -11,8 +11,7 @@ namespace ManyConsole.Internal
     public class ConsoleHelp
     {
         
-        public static void ShowSummaryOfCommands(IEnumerable<IConsoleCommand> commands, TextWriter console, string summaryTitle = null)
-        {
+        public static void ShowSummaryOfCommands<TResult,TSettings>(IEnumerable<IConsoleCommand<TResult, TSettings>> commands, TextWriter console, string summaryTitle = null) where TResult : ICommandResult where TSettings : ICommandSettings {
             console.WriteLine();
             if (summaryTitle != null)
             {
@@ -62,8 +61,7 @@ namespace ManyConsole.Internal
                 }
             }
         }
-        public static void ShowCommandHelp(IConsoleCommand selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false)
-        {
+        public static void ShowCommandHelp<TResult, TSettings>(IConsoleCommand<TResult, TSettings> selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false) where TResult : ICommandResult where TSettings : ICommandSettings {
             var haveOptions = selectedCommand.GetActualOptions().Count > 0;
 
             console.WriteLine();
@@ -98,8 +96,7 @@ namespace ManyConsole.Internal
             console.WriteLine();
         }
 
-        public static void ShowParsedCommand(IConsoleCommand consoleCommand, TextWriter consoleOut)
-        {
+        public static void ShowParsedCommand<TResult, TSettings>(IConsoleCommand<TResult, TSettings> consoleCommand, TextWriter consoleOut) where TResult : ICommandResult where TSettings : ICommandSettings {
 
             if (!consoleCommand.TraceCommandAfterParse || consoleCommand.IsHidden)
             {

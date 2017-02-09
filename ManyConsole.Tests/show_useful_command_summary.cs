@@ -22,9 +22,8 @@ namespace ManyConsole.Tests
             public int? PropertyC { get; set; }
             public IEnumerable<int>  PropertyD = new int[] { 1,2,3 };
 
-            public override int Run(string[] remainingArguments)
-            {
-                return 0;
+            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
+                return new DefaultCommandResult();
             }
         }
 
@@ -43,7 +42,7 @@ namespace ManyConsole.Tests
                             new SomeCommand()
                         },
                         new string[] { "thecommand" },
-                        sw);
+                        new DefaultCommandSettings(sw));
                 });
 
                 then("the output includes a summary of the command", delegate

@@ -27,10 +27,9 @@ namespace ManyConsole.Tests
                 optionSet.Add<int>("B=", "second option", v => B = v);
             }
 
-            public override int Run(string[] remainingArguments)
-            {
+            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
                 Result = A + "," + B;
-                return 0;
+                return new DefaultCommandResult();
             }
         }
         public override void Specify()
@@ -43,7 +42,7 @@ namespace ManyConsole.Tests
                 var outputCode = ConsoleCommandDispatcher.DispatchCommand(
                     command, 
                     new []{"/A", "1", "/B", "2"}, 
-                    new StringWriter(consoleOutput));
+                    new StringWriter(consoleOutput)).ExitCode;
 
                 expect(() => String.IsNullOrEmpty(consoleOutput.ToString()));
                 expect(() => outputCode == 0);

@@ -14,10 +14,9 @@ namespace ManyConsole.Tests.ConsoleModeCommandSpecs
 
         public int StatusCode;
 
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
             RunCount++;
-            return StatusCode;
+            return new DefaultCommandResult { ExitCode = StatusCode};
         }
     }
 }

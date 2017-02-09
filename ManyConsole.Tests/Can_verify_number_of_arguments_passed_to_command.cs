@@ -54,9 +54,8 @@ namespace ManyConsole.Tests
                 HasAdditionalArguments(5);
             }
 
-            public override int Run(string[] remainingArguments)
-            {
-                return 0;
+            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
+                return new DefaultCommandResult();
             }
         }
 
@@ -73,7 +72,7 @@ namespace ManyConsole.Tests
                         new CommandWith5Parameters()
                     },
                     parameters,
-                    sw);
+                    new DefaultCommandSettings(sw));
 
                 return sb.ToString();
             });

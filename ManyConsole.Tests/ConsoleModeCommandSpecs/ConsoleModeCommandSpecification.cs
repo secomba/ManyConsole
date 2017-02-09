@@ -15,7 +15,7 @@ namespace ManyConsole.Tests.ConsoleModeCommandSpecs
             var fakeConsoleWriter = outputWriter ?? new StringWriter();
             var fakeConsoleReader = new StreamReader(injectedInputStream);
 
-            var consoleModeCommand = new ConsoleModeCommand(
+            var consoleModeCommand = new ConsoleModeCommand<DefaultCommandResult>(
                 () => new ConsoleCommand[] {command},
                 fakeConsoleWriter,
                 fakeConsoleReader);
@@ -36,8 +36,8 @@ namespace ManyConsole.Tests.ConsoleModeCommandSpecs
             arrange(() => A.CallTo(() => redirectionDetection.IsInputRedirected()).Returns(!inputIsFromUser));
             
             return () =>
-                   ConsoleCommandDispatcher.DispatchCommand(new ConsoleCommand[] {consoleModeCommand}, new string[0],
-                                                            fakeConsoleWriter);
+                   ConsoleCommandDispatcher.DispatchCommand(new ConsoleCommand<DefaultCommandResult>[] {consoleModeCommand}, new string[0],
+                                                            new DefaultCommandSettings(fakeConsoleWriter)).ExitCode;
         }
     }
 }

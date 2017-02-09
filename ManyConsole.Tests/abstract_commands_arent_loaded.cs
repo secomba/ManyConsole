@@ -24,9 +24,10 @@ namespace ManyConsole.Tests
                 this.IsCommand("NonabstractCommand");
             }
 
-            public override int Run(string[] remainingArguments)
+          
+            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings)
             {
-                return 0;
+                return new DefaultCommandResult();
             }
         }
 

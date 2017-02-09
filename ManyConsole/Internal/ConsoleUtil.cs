@@ -18,14 +18,13 @@ namespace ManyConsole.Internal
                 throw new ConsoleHelpAsException("Extra parameters specified: " + String.Join(", ", args.Skip(expectedArgumentCount).ToArray()));
         }
 
-        public static bool DoesArgMatchCommand(string argument, IConsoleCommand command)
+        public static bool DoesArgMatchCommand<TResult, TSettings>(string argument, IConsoleCommand<TResult, TSettings> command) where TResult : ICommandResult where TSettings: ICommandSettings
         {
             if (argument == null || command == null)
             {
                 return false;
             }
-            return
-                command.Command.ToLower()
+            return command.Command.ToLower()
                     .Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray()
                     .Contains(argument.ToLower());
         }

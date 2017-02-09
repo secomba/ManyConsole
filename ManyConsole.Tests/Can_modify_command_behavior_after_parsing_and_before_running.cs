@@ -19,14 +19,14 @@ namespace ManyConsole.Tests
 
             public int? Maybe;
 
-            public override int? OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments)
-            {
-                return Maybe;
+            public override DefaultCommandResult OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments, out bool cancel) {
+                cancel = Maybe != null && Maybe.Value != 0;
+                return new DefaultCommandResult() {ExitCode = Maybe ?? 0};
             }
 
-            public override int Run(string[] remainingArguments)
+            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings)
             {
-                return 0;
+                return new DefaultCommandResult();
             }
         }
 
@@ -37,7 +37,7 @@ namespace ManyConsole.Tests
                 var output = new StringWriter();
                 var command = new OverridingCommand();
 
-                var exitCode = arrange(() => ConsoleCommandDispatcher.DispatchCommand(command, new[] { "/n", "123" }, output));
+                var exitCode = arrange(() => ConsoleCommandDispatcher.DispatchCommand(command, new[] { "/n", "123" }, output)).ExitCode;
 
                 expect(() => exitCode == 123);
                 expect(() => String.IsNullOrEmpty(output.ToString()));

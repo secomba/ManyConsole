@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ManyConsole;
 
 namespace SampleConsole
@@ -21,8 +18,7 @@ namespace SampleConsole
             AllowsAnyAdditionalArguments("<foo1> <foo2> <fooN> where N is a word");
         }
 
-        public override int Run(string[] remainingArguments)
-        {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
             if (string.IsNullOrWhiteSpace(comments))
             {
                 Console.WriteLine("You made no comment");
@@ -34,7 +30,7 @@ namespace SampleConsole
 
             Console.WriteLine("The remaining arguments were " + Newtonsoft.Json.JsonConvert.SerializeObject(remainingArguments));
 
-            return 0;
+            return new DefaultCommandResult();
         }
     }
 }

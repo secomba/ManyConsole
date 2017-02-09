@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ManyConsole;
 
 namespace SampleConsole
@@ -13,20 +12,19 @@ namespace SampleConsole
             var commands = GetCommands();
 
             // then run them.
-            Environment.ExitCode =  ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out, customHelpCommand: new HelpCommand());
+            Environment.ExitCode = ConsoleCommandDispatcher.DispatchCommand(commands, args, new DefaultCommandSettings(Console.Out), new HelpCommand()).ExitCode;
             return Environment.ExitCode;
         }
 
-        public static IList<IConsoleCommand> GetCommands()
+        public static IList<IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>> GetCommands()
         {
-            return ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
+            return ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.FindCommandsInSameAssemblyAs(typeof(Program));
         }
     }
 
 
-    class HelpCommand : ConsoleCommand, IHelpCommand
+    class HelpCommand : ConsoleCommand, IHelpCommand<DefaultCommandResult, DefaultCommandSettings>
     {
-
         public HelpCommand()
         {
             IsCommand("h|help");
@@ -36,10 +34,10 @@ namespace SampleConsole
         public bool SkipExeInExpectedUsage { get; set; }
         public Exception FailureReason { get; set; }
 
-        public override int Run(string[] remainingArguments)
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
         {
             Console.WriteLine(string.Join(", ", remainingArguments));
-            return 4;
+            return new DefaultCommandResult { ExitCode = 4 };
         }
     }
 }
