@@ -207,7 +207,7 @@ namespace ManyConsole
                 throw new ArgumentNullException("assembly");
 
             var commandTypes = assembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof (ConsoleCommand)))
+                .Where(t => t.IsSubclassOf(typeof(ConsoleCommand<TResult, TSettings>)))
                 .Where(t => !t.IsAbstract)
                 .Where(t =>  validateCommandType?.Invoke(t) ?? true)
                 .OrderBy(t => t.FullName);
