@@ -67,7 +67,7 @@ namespace ManyConsole.Tests
             public int X;
             public int Y;
 
-            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
                 _recorder.WriteLine("You walk to {0}, {1} and find a maze of twisty little passages, all alike.", X, Y);
                 return new DefaultCommandResult();
             }

@@ -19,12 +19,12 @@ namespace ManyConsole.Tests
 
             public int? Maybe;
 
-            public override DefaultCommandResult OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments, out bool cancel) {
+            public override DefaultCommandResult OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments, out bool cancel, ref DefaultCommandSettings settings) {
                 cancel = Maybe != null && Maybe.Value != 0;
                 return new DefaultCommandResult() {ExitCode = Maybe ?? 0};
             }
 
-            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings)
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
             {
                 return new DefaultCommandResult();
             }

@@ -103,7 +103,7 @@ namespace ManyConsole
                 CheckRemainingArguments(remainingArguments, selectedCommand.RemainingArgumentsCount);
 
                 bool cancel;
-                var preResult = selectedCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments.ToArray(), out cancel);
+                var preResult = selectedCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments.ToArray(), out cancel, ref settings);
 
                 if (cancel)
                     return preResult;
@@ -132,7 +132,7 @@ namespace ManyConsole
                             // ignore parsing errors for help command
                         }
                         bool cancel;
-                        var preResult = customHelpCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments, out cancel);
+                        var preResult = customHelpCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments, out cancel, ref settings);
                         if (cancel)
                             return preResult;
 

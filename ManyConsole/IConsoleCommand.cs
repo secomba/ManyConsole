@@ -17,6 +17,6 @@ namespace ManyConsole
         HideableOptionSet GetActualOptions();
         void CheckRequiredArguments();
         void CheckSubLevelArguments(string[] remainingArguments);
-        TResult OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments, out bool cancel);
+        TResult OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments, out bool cancel, ref TSettings settings);
     }
 }

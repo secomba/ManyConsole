@@ -21,7 +21,7 @@ namespace ManyConsole.Tests.ConsoleModeCommandSpecs
                 this.AllowsAnyAdditionalArguments("And more strings");
             }
 
-            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
                 Unmarked.AddRange(remainingArguments);
                 return new DefaultCommandResult();
             }

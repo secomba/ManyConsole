@@ -25,7 +25,7 @@ namespace ManyConsole.Tests
             }
 
           
-            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings)
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
             {
                 return new DefaultCommandResult();
             }

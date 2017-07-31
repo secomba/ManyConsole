@@ -27,7 +27,7 @@ namespace ManyConsole.Tests
                 optionSet.Add<int>("B=", "second option", v => B = v);
             }
 
-            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
                 Result = A + "," + B;
                 return new DefaultCommandResult();
             }

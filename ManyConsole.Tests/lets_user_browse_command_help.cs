@@ -18,7 +18,7 @@ namespace ManyConsole.Tests
                 var firstcommand = new TestCommand().IsCommand("command-a", "oneline description a");
                 var secondCommand = new TestCommand().IsCommand("command-b", "oneline description b");
 
-                var commands = new IConsoleCommand<DefaultCommandResult>[]
+                var commands = new IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>[]
                 {
                     firstcommand,
                     secondCommand
@@ -34,9 +34,9 @@ namespace ManyConsole.Tests
             });
         }
 
-        private void WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(List<IConsoleCommand<DefaultCommandResult>> commands, StringWriter writer,
-                                                                                ConsoleCommand<DefaultCommandResult> firstcommand,
-                                                                                ConsoleCommand<DefaultCommandResult> secondCommand, string[] arguments)
+        private void WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(List<IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>> commands, StringWriter writer,
+                                                                                ConsoleCommand<DefaultCommandResult, DefaultCommandSettings> firstcommand,
+                                                                                ConsoleCommand<DefaultCommandResult, DefaultCommandSettings> secondCommand, string[] arguments)
         {
             when("the user does not specify a command", delegate
                 {
@@ -55,7 +55,7 @@ namespace ManyConsole.Tests
                 });
         }
 
-        private void ShouldShowHelpWhenRequested(List<IConsoleCommand<DefaultCommandResult>> commands, string[] consoleArguments)
+        private void ShouldShowHelpWhenRequested(List<IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>> commands, string[] consoleArguments)
         {
             var writer = new StringWriter();
 

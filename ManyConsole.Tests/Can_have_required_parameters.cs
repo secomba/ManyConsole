@@ -68,7 +68,7 @@ namespace ManyConsole.Tests
             });
         }
 
-        void when_the_command_is_ran_without_the_parameter_then_the_console_gives_error_output(ConsoleCommand<DefaultCommandResult> command, string parameterName)
+        void when_the_command_is_ran_without_the_parameter_then_the_console_gives_error_output(ConsoleCommand<DefaultCommandResult, DefaultCommandSettings> command, string parameterName)
         {
             when("that command is ran without the parameter", delegate()
             {

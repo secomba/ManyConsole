@@ -22,7 +22,7 @@ namespace ManyConsole.Tests
             public int? PropertyC { get; set; }
             public IEnumerable<int>  PropertyD = new int[] { 1,2,3 };
 
-            public override DefaultCommandResult Run<TSettings>(string[] remainingArguments, ref TSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
                 return new DefaultCommandResult();
             }
         }

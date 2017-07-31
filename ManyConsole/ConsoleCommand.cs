@@ -150,7 +150,7 @@ namespace ManyConsole
             }
         }
 
-        public virtual TResult OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments, out bool cancel)
+        public virtual TResult OverrideAfterHandlingArgumentsBeforeRun(string[] remainingArguments, out bool cancel, ref TSettings settings)
         {
             cancel = false;
             return default(TResult);
