@@ -5,7 +5,8 @@
         int ExitCode { get; set; }
     }
 
-    public class DefaultCommandResult : ICommandResult {
+    public class DefaultCommandResult : ICommandResult
+    {
         public int ExitCode { get; set; }
     }
 }

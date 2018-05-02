@@ -6,7 +6,7 @@ using ManyConsole;
 
 namespace SampleConsole
 {
-    public class DumpEmlFilesCommand : ConsoleCommand
+    public class DumpEmlFilesCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
     {
         public DumpEmlFilesCommand()
         {
@@ -22,18 +22,17 @@ namespace SampleConsole
         public bool Recursive;
         public List<string> HeadersToPrint = new List<string>();
 
-        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+        {
             Path = remainingArguments[0];
 
             if (File.Exists(Path))
             {
                 PrintEmlFile(Path);
-            }
-            else if (Directory.Exists(Path))
+            } else if (Directory.Exists(Path))
             {
                 PrintEmlDirectory(Path);
-            }
-            else
+            } else
             {
                 throw new Exception("Could not find file or directory at " + Path);
             }
@@ -45,13 +44,12 @@ namespace SampleConsole
         {
             var di = new DirectoryInfo(directory);
 
-            foreach(var entry in di.GetFileSystemInfos())
+            foreach (var entry in di.GetFileSystemInfos())
             {
                 if (entry is FileInfo)
                 {
                     PrintEmlFile(entry.FullName);
-                }
-                else if (Recursive && entry is DirectoryInfo)
+                } else if (Recursive && entry is DirectoryInfo)
                 {
                     PrintEmlDirectory(entry.FullName);
                 }
@@ -65,11 +63,11 @@ namespace SampleConsole
             Console.WriteLine("SUBJECT:\t{0}", mail.Subject);
             Console.WriteLine("FROM:\t{0}", mail.From);
 
-            foreach(var to in mail.To)
+            foreach (var to in mail.To)
             {
                 Console.WriteLine("TO:\t{0}", to);
             }
-            
+
             var headersPresent = mail.Headers.Keys.OfType<string>().Select(s => s.ToLower());
 
             foreach (var header in HeadersToPrint)

@@ -19,15 +19,15 @@ namespace ManyConsole.Tests
 
             when("the user types in input which is rejected by NDesk.Options", delegate
             {
-                var lastError = arrange(() => ConsoleCommandDispatcher.DispatchCommand(
-                    new ConsoleCommand[] { new SomeCommandWithAParameter() }, 
+                var lastError = arrange(() => ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(
+                    new IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>[] { new SomeCommandWithAParameter() },
                     new[] { "some", "/a" },
                     new DefaultCommandSettings(trace)).ExitCode);
-                
+
                 then("the error output gives the error message and typical help", delegate
                 {
                     expect(() => lastError != 0);
-                    
+
                     expect(() => trace.ToString().Contains("Missing required value for option '/a'"));
                     expect(() => trace.ToString().Contains(TextWithinExpectedUsageHelp));
 
@@ -40,34 +40,36 @@ namespace ManyConsole.Tests
             {
                 then("the exception passes through", delegate
                 {
-                    Assert.Throws<InvalidAsynchronousStateException>(() => ConsoleCommandDispatcher.DispatchCommand(
-                        new ConsoleCommand[] { new SomeCommandThrowingAnException(), },
+                    Assert.Throws<InvalidAsynchronousStateException>(() => ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(
+                        new IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>[] { new SomeCommandThrowingAnException(), },
                         new string[0], new DefaultCommandSettings(trace)));
                 });
             });
         }
 
-        class SomeCommandWithAParameter : ConsoleCommand
+        class SomeCommandWithAParameter : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
         {
             public SomeCommandWithAParameter()
             {
                 this.IsCommand("some");
-                this.HasOption("a=", "a parameter", v => {});
+                this.HasOption("a=", "a parameter", v => { });
             }
 
-            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+            {
                 return new DefaultCommandResult();
             }
         }
-        
-        class SomeCommandThrowingAnException : ConsoleCommand
+
+        class SomeCommandThrowingAnException : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
         {
             public SomeCommandThrowingAnException()
             {
                 this.IsCommand("some");
             }
 
-            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+            {
                 throw new InvalidAsynchronousStateException();
             }
         }

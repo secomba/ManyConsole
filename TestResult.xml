@@ -1,0 +1,1179 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\bin\Debug\ManyConsole.Tests.dll" total="50" errors="9" failures="4" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2018-05-02" time="11:15:12">
+  <environment nunit-version="2.6.1.12217" clr-version="2.0.50727.8825" os-version="Microsoft Windows NT 6.2.9200.0" platform="Win32NT" cwd="C:\Users\Florian Obermayer\git\ManyConsole" machine-name="FO-T440P" user="Florian Obermayer" user-domain="FO-T440P" />
+  <culture-info current-culture="de-DE" current-uiculture="de-DE" />
+  <test-suite type="Assembly" name="C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\bin\Debug\ManyConsole.Tests.dll" executed="True" result="Failure" success="False" time="0.878" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="ManyConsole" executed="True" result="Failure" success="False" time="0.869" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Tests" executed="True" result="Failure" success="False" time="0.869" asserts="0">
+            <results>
+              <test-suite type="TestSuite" name="abstract_commands_arent_loaded" executed="True" result="Success" success="True" time="0.122" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.abstract_commands_arent_loaded" />
+                </properties>
+                <results>
+                  <test-case name="ManyConsole.Tests.abstract_commands_arent_loaded, when loading commands from an assembly, abstract commands are ignored" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.abstract_commands_arent_loaded,&#xA;when loading commands from an assembly, abstract commands are ignored" />
+                    </properties>
+                  </test-case>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Can_consume_variable_number_of_arguments" executed="True" result="Failure" success="False" time="0.325" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="given a command expecting at least 2 parameters" executed="True" result="Failure" success="False" time="0.164" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when the command is called with no parameters" executed="True" result="Success" success="True" time="0.029" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters,&#xA;when the command is called with no parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting at least 2 parameters, when the command is called with no parameters, then the output has an errorstring asking for at least 2 parameters" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters,&#xA;when the command is called with no parameters,&#xA;then the output has an errorstring asking for at least 2 parameters" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 1 parameter" executed="True" result="Success" success="True" time="0.034" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters,&#xA;when the command is called with 1 parameter" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting at least 2 parameters, when the command is called with 1 parameter, then the output has an errorstring asking for at least 1 parameter more" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters,&#xA;when the command is called with 1 parameter,&#xA;then the output has an errorstring asking for at least 1 parameter more" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 2 parameters" executed="True" result="Failure" success="False" time="0.057" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters,&#xA;when the command is called with 2 parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting at least 2 parameters, when the command is called with 2 parameters, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters,&#xA;when the command is called with 2 parameters,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command1:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_consume_variable_number_of_arguments,
+given a command expecting at least 2 parameters,
+when the command is called with 2 parameters,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<>c__DisplayClass0_2.<Specify>b__10() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 42.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_4() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 40.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_0() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 36.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 14.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 5 parameters" executed="True" result="Failure" success="False" time="0.003" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters,&#xA;when the command is called with 5 parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting at least 2 parameters, when the command is called with 5 parameters, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting at least 2 parameters,&#xA;when the command is called with 5 parameters,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command1:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_consume_variable_number_of_arguments,
+given a command expecting at least 2 parameters,
+when the command is called with 5 parameters,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<>c__DisplayClass0_3.<Specify>b__12() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 52.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_5() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 50.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_0() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 46.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 14.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestSuite" name="given a command expecting between 2 and 5 parameters" executed="True" result="Failure" success="False" time="0.125" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when the command is called with no parameters" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with no parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting between 2 and 5 parameters, when the command is called with no parameters, then the output has an errorstring asking for at least 2 parameters" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with no parameters,&#xA;then the output has an errorstring asking for at least 2 parameters" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 1 parameter" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 1 parameter" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting between 2 and 5 parameters, when the command is called with 1 parameter, then the output has an errorstring asking for at least 1 parameter more" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 1 parameter,&#xA;then the output has an errorstring asking for at least 1 parameter more" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 2 parameters" executed="True" result="Failure" success="False" time="0.004" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 2 parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting between 2 and 5 parameters, when the command is called with 2 parameters, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 2 parameters,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command2:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_consume_variable_number_of_arguments,
+given a command expecting between 2 and 5 parameters,
+when the command is called with 2 parameters,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<>c__DisplayClass0_6.<Specify>b__24() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 85.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_16() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 83.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_1() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 79.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 57.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 4 parameters" executed="True" result="Failure" success="False" time="0.004" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 4 parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting between 2 and 5 parameters, when the command is called with 4 parameters, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 4 parameters,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command2:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_consume_variable_number_of_arguments,
+given a command expecting between 2 and 5 parameters,
+when the command is called with 4 parameters,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<>c__DisplayClass0_7.<Specify>b__26() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 95.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_17() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 93.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_1() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 89.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 57.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 5 parameters" executed="True" result="Failure" success="False" time="0.004" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 5 parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting between 2 and 5 parameters, when the command is called with 5 parameters, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 5 parameters,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command2:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_consume_variable_number_of_arguments,
+given a command expecting between 2 and 5 parameters,
+when the command is called with 5 parameters,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<>c__DisplayClass0_8.<Specify>b__28() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 105.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_18() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 103.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.<Specify>b__0_1() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 99.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_consume_variable_number_of_arguments.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_consume_variable_number_of_arguments.cs:Zeile 57.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 6 parameters" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 6 parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_consume_variable_number_of_arguments, given a command expecting between 2 and 5 parameters, when the command is called with 6 parameters, then the output has an errorstring indicating the extra parameters" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_consume_variable_number_of_arguments,&#xA;given a command expecting between 2 and 5 parameters,&#xA;when the command is called with 6 parameters,&#xA;then the output has an errorstring indicating the extra parameters" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Can_define_commands_with_aliases" executed="True" result="Failure" success="False" time="0.080" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Can_define_commands_with_aliases" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="given a command with 2 aliases" executed="True" result="Failure" success="False" time="0.079" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Can_define_commands_with_aliases,&#xA;given a command with 2 aliases" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when the arguments specify the command directly" executed="True" result="Failure" success="False" time="0.005" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_define_commands_with_aliases,&#xA;given a command with 2 aliases,&#xA;when the arguments specify the command directly" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_define_commands_with_aliases, given a command with 2 aliases, when the arguments specify the command directly, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_define_commands_with_aliases,&#xA;given a command with 2 aliases,&#xA;when the arguments specify the command directly,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_define_commands_with_aliases,
+given a command with 2 aliases,
+when the arguments specify the command directly,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<>c__DisplayClass0_0.<Specify>b__4() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 22.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<Specify>b__0_1() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 20.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<Specify>b__0_0() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 16.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 14.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the arguments specifies the first alias" executed="True" result="Failure" success="False" time="0.003" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_define_commands_with_aliases,&#xA;given a command with 2 aliases,&#xA;when the arguments specifies the first alias" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_define_commands_with_aliases, given a command with 2 aliases, when the arguments specifies the first alias, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_define_commands_with_aliases,&#xA;given a command with 2 aliases,&#xA;when the arguments specifies the first alias,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_define_commands_with_aliases,
+given a command with 2 aliases,
+when the arguments specifies the first alias,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<>c__DisplayClass0_1.<Specify>b__6() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 31.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<Specify>b__0_2() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 29.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<Specify>b__0_0() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 25.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 14.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the arguments specifies the second alias" executed="True" result="Failure" success="False" time="0.005" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_define_commands_with_aliases,&#xA;given a command with 2 aliases,&#xA;when the arguments specifies the second alias" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_define_commands_with_aliases, given a command with 2 aliases, when the arguments specifies the second alias, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_define_commands_with_aliases,&#xA;given a command with 2 aliases,&#xA;when the arguments specifies the second alias,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_define_commands_with_aliases,
+given a command with 2 aliases,
+when the arguments specifies the second alias,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<>c__DisplayClass0_2.<Specify>b__8() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 40.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<Specify>b__0_3() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 38.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.<Specify>b__0_0() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 34.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_define_commands_with_aliases.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_define_commands_with_aliases.cs:Zeile 14.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Can_have_required_parameters" executed="True" result="Success" success="True" time="0.067" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="given a no-op command that requires a parameter" executed="True" result="Success" success="True" time="0.048" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a no-op command that requires a parameter" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when that command is ran without the parameter" executed="True" result="Success" success="True" time="0.017" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a no-op command that requires a parameter,&#xA;when that command is ran without the parameter" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_have_required_parameters, given a no-op command that requires a parameter, when that command is ran without the parameter, then the output indicates the parameter wasn't specified" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a no-op command that requires a parameter,&#xA;when that command is ran without the parameter,&#xA;then the output indicates the parameter wasn't specified" />
+                            </properties>
+                          </test-case>
+                          <test-case name="ManyConsole.Tests.Can_have_required_parameters, given a no-op command that requires a parameter, when that command is ran without the parameter, then the exit code indicates the call failed" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a no-op command that requires a parameter,&#xA;when that command is ran without the parameter,&#xA;then the exit code indicates the call failed" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when that command is ran with the parameter" executed="True" result="Success" success="True" time="0.030" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a no-op command that requires a parameter,&#xA;when that command is ran with the parameter" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_have_required_parameters, given a no-op command that requires a parameter, when that command is ran with the parameter, then the exit code indicates the call succeeded" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a no-op command that requires a parameter,&#xA;when that command is ran with the parameter,&#xA;then the exit code indicates the call succeeded" />
+                            </properties>
+                          </test-case>
+                          <test-case name="ManyConsole.Tests.Can_have_required_parameters, given a no-op command that requires a parameter, when that command is ran with the parameter, then the option is actually received" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a no-op command that requires a parameter,&#xA;when that command is ran with the parameter,&#xA;then the option is actually received" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestSuite" name="given a command that requires an integer parameter" executed="True" result="Success" success="True" time="0.016" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a command that requires an integer parameter" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when the command is passed an integer value" executed="True" result="Success" success="True" time="0.011" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a command that requires an integer parameter,&#xA;when the command is passed an integer value" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_have_required_parameters, given a command that requires an integer parameter, when the command is passed an integer value, then the command is told the parameter" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a command that requires an integer parameter,&#xA;when the command is passed an integer value,&#xA;then the command is told the parameter" />
+                            </properties>
+                          </test-case>
+                          <test-case name="ManyConsole.Tests.Can_have_required_parameters, given a command that requires an integer parameter, when the command is passed an integer value, then the return value is success" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a command that requires an integer parameter,&#xA;when the command is passed an integer value,&#xA;then the return value is success" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when that command is ran without the parameter" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a command that requires an integer parameter,&#xA;when that command is ran without the parameter" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_have_required_parameters, given a command that requires an integer parameter, when that command is ran without the parameter, then the output indicates the parameter wasn't specified" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a command that requires an integer parameter,&#xA;when that command is ran without the parameter,&#xA;then the output indicates the parameter wasn't specified" />
+                            </properties>
+                          </test-case>
+                          <test-case name="ManyConsole.Tests.Can_have_required_parameters, given a command that requires an integer parameter, when that command is ran without the parameter, then the exit code indicates the call failed" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_have_required_parameters,&#xA;given a command that requires an integer parameter,&#xA;when that command is ran without the parameter,&#xA;then the exit code indicates the call failed" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Can_modify_command_behavior_after_parsing_and_before_running" executed="True" result="Success" success="True" time="0.004" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Can_modify_command_behavior_after_parsing_and_before_running" />
+                </properties>
+                <results>
+                  <test-case name="ManyConsole.Tests.Can_modify_command_behavior_after_parsing_and_before_running, can specify a return code and halt execution" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Can_modify_command_behavior_after_parsing_and_before_running,&#xA;can specify a return code and halt execution" />
+                    </properties>
+                  </test-case>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Can_overwrite_options_property" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Can_overwrite_options_property" />
+                </properties>
+                <results>
+                  <test-case name="ManyConsole.Tests.Can_overwrite_options_property, does not lose other arguments when property Options is overwritten" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Can_overwrite_options_property,&#xA;does not lose other arguments when property Options is overwritten" />
+                    </properties>
+                  </test-case>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Can_verify_number_of_arguments_passed_to_command" executed="True" result="Failure" success="False" time="0.012" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="given a command expecting 5 parameters" executed="True" result="Failure" success="False" time="0.012" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command,&#xA;given a command expecting 5 parameters" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when the command is called with no parameters" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command,&#xA;given a command expecting 5 parameters,&#xA;when the command is called with no parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command, given a command expecting 5 parameters, when the command is called with no parameters, then the output has an errorstring asking for 5 parameters" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command,&#xA;given a command expecting 5 parameters,&#xA;when the command is called with no parameters,&#xA;then the output has an errorstring asking for 5 parameters" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 8 parameters" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command,&#xA;given a command expecting 5 parameters,&#xA;when the command is called with 8 parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command, given a command expecting 5 parameters, when the command is called with 8 parameters, then the output has an errorstring indicating the extra parameters" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command,&#xA;given a command expecting 5 parameters,&#xA;when the command is called with 8 parameters,&#xA;then the output has an errorstring indicating the extra parameters" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the command is called with 5 parameters" executed="True" result="Failure" success="False" time="0.004" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command,&#xA;given a command expecting 5 parameters,&#xA;when the command is called with 5 parameters" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command, given a command expecting 5 parameters, when the command is called with 5 parameters, then the output has no errorstring" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command,&#xA;given a command expecting 5 parameters,&#xA;when the command is called with 5 parameters,&#xA;then the output has no errorstring" />
+                            </properties>
+                            <failure>
+                              <message><![CDATA[System.Exception : IsTrue failed, expression was:
+
+output.Trim() == "Executing command:"
+'      '      |
+'      |      |
+|      |      False
+|      ""
+"
+
+"]]></message>
+                              <stack-trace><![CDATA[SPECIFICATION:
+ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command,
+given a command expecting 5 parameters,
+when the command is called with 5 parameters,
+then the output has no errorstring
+
+bei PowerAssert.PAssert.IsTrue(Expression`1 expression)
+bei NJasmine.Extras.Expect.That(Expression`1 expectation) in c:\src\NJasmine\NJasmine\Extras\Expect.cs:Zeile 11.
+bei NJasmine.Core.Execution.DiscoveryState.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 60.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitExpect(ExpectElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 54.
+bei NJasmine.Core.Elements.ExpectElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ExpectElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.expect(Expression`1 expectation) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 186.
+bei ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command.<>c__DisplayClass0_2.<Specify>b__8() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_verify_number_of_arguments_passed_to_command.cs:Zeile 43.
+bei NJasmine.Core.Execution.NJasmineTestRunContext.whileInState(ISpecPositionVisitor state, Action action) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunContext.cs:Zeile 70.
+bei NJasmine.Core.Execution.DiscoveryState.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 48.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitTest(TestElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 44.
+bei NJasmine.Core.Elements.TestElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\TestElement.cs:Zeile 22.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.then(String description, Action test) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 50.
+bei ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command.<Specify>b__0_3() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_verify_number_of_arguments_passed_to_command.cs:Zeile 41.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.when(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 40.
+bei ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command.<Specify>b__0_0() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_verify_number_of_arguments_passed_to_command.cs:Zeile 37.
+bei NJasmine.Core.Execution.DiscoveryState.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\DiscoveryState.cs:Zeile 23.
+bei NJasmine.Core.Execution.NJasmineTestRunner.visitFork(ForkElement element, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Execution\NJasmineTestRunner.cs:Zeile 19.
+bei NJasmine.Core.Elements.ForkElement.Run(ISpecPositionVisitor visitor, TestPosition position) in c:\src\NJasmine\NJasmine\Core\Elements\ForkElement.cs:Zeile 19.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement[T](SpecificationElement specificationElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 31.
+bei NJasmine.Core.SpecificationFixture.RunSpecificationElement(SpecificationElement specElement) in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 21.
+bei NJasmine.GivenWhenThenFixture.given(String description, Action specification) in c:\src\NJasmine\NJasmine\GivenWhenThenFixture.cs:Zeile 30.
+bei ManyConsole.Tests.Can_verify_number_of_arguments_passed_to_command.Specify() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Can_verify_number_of_arguments_passed_to_command.cs:Zeile 14.
+bei NJasmine.Core.SpecificationFixture.Run() in c:\src\NJasmine\NJasmine\Core\SpecificationFixture.cs:Zeile 14.
+bei NJasmine.Core.SpecificationRunner.RunTest(TestContext testContext, Func`1 fixtureFactory, List`1 traceMessages) in c:\src\NJasmine\NJasmine\Core\SpecificationRunner.cs:Zeile 41.
+
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Console_interface_is_simplified_when_there_is_only_one_command" executed="True" result="Failure" success="False" time="0.015" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="given exactly one command is loaded" executed="True" result="Failure" success="False" time="0.014" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command,&#xA;given exactly one command is loaded" />
+                    </properties>
+                    <results>
+                      <test-case name="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command, given exactly one command is loaded, when no parameters are specified" executed="True" result="Failure" success="False" time="0.001" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command,&#xA;given exactly one command is loaded,&#xA;when no parameters are specified" />
+                        </properties>
+                        <failure>
+                          <message><![CDATA[Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.]]></message>
+                          <stack-trace><![CDATA[bei ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command.<>c__DisplayClass2_0.<Specify>b__1() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Console_interface_is_simplified_when_there_is_only_one_command.cs:Zeile 37.
+bei NJasmine.Core.Discovery.SharedContext.RunActionWithVisitor(TestPosition position, Action action, ISpecPositionVisitor visitor) in c:\src\NJasmine\NJasmine\Core\Discovery\SharedContext.cs:Zeile 41.
+]]></stack-trace>
+                        </failure>
+                      </test-case>
+                      <test-case name="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command, given exactly one command is loaded, when the only parameter specified is the command" executed="True" result="Failure" success="False" time="0.000" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command,&#xA;given exactly one command is loaded,&#xA;when the only parameter specified is the command" />
+                        </properties>
+                        <failure>
+                          <message><![CDATA[Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.]]></message>
+                          <stack-trace><![CDATA[bei ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command.<>c__DisplayClass2_0.<Specify>b__2() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Console_interface_is_simplified_when_there_is_only_one_command.cs:Zeile 50.
+bei NJasmine.Core.Discovery.SharedContext.RunActionWithVisitor(TestPosition position, Action action, ISpecPositionVisitor visitor) in c:\src\NJasmine\NJasmine\Core\Discovery\SharedContext.cs:Zeile 41.
+]]></stack-trace>
+                        </failure>
+                      </test-case>
+                      <test-case name="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command, given exactly one command is loaded, when the only parameter specified is not the command" executed="True" result="Failure" success="False" time="0.000" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command,&#xA;given exactly one command is loaded,&#xA;when the only parameter specified is not the command" />
+                        </properties>
+                        <failure>
+                          <message><![CDATA[Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.]]></message>
+                          <stack-trace><![CDATA[bei ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command.<>c__DisplayClass2_0.<Specify>b__3() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Console_interface_is_simplified_when_there_is_only_one_command.cs:Zeile 63.
+bei NJasmine.Core.Discovery.SharedContext.RunActionWithVisitor(TestPosition position, Action action, ISpecPositionVisitor visitor) in c:\src\NJasmine\NJasmine\Core\Discovery\SharedContext.cs:Zeile 41.
+]]></stack-trace>
+                        </failure>
+                      </test-case>
+                      <test-case name="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command, given exactly one command is loaded, when both the command and an extra parameter are specified" executed="True" result="Failure" success="False" time="0.000" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command,&#xA;given exactly one command is loaded,&#xA;when both the command and an extra parameter are specified" />
+                        </properties>
+                        <failure>
+                          <message><![CDATA[Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.]]></message>
+                          <stack-trace><![CDATA[bei ManyConsole.Tests.Console_interface_is_simplified_when_there_is_only_one_command.<>c__DisplayClass2_0.<Specify>b__4() in C:\Users\Florian Obermayer\git\ManyConsole\ManyConsole.Tests\Console_interface_is_simplified_when_there_is_only_one_command.cs:Zeile 76.
+bei NJasmine.Core.Discovery.SharedContext.RunActionWithVisitor(TestPosition position, Action action, ISpecPositionVisitor visitor) in c:\src\NJasmine\NJasmine\Core\Discovery\SharedContext.cs:Zeile 41.
+]]></stack-trace>
+                        </failure>
+                      </test-case>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="Namespace" name="ConsoleModeCommandSpecs" executed="True" result="Success" success="True" time="0.082" asserts="0">
+                <results>
+                  <test-suite type="TestSuite" name="Should_fail_strictly_on_error_when_running_noninteractive" executed="True" result="Success" success="True" time="0.059" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="given console input is coming from the user" executed="True" result="Success" success="True" time="0.051" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is coming from the user" />
+                        </properties>
+                        <results>
+                          <test-suite type="TestSuite" name="when multiple commands run successfully" executed="True" result="Success" success="True" time="0.043" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is coming from the user,&#xA;when multiple commands run successfully" />
+                            </properties>
+                            <results>
+                              <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive, given console input is coming from the user, when multiple commands run successfully, then the return code is 0" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                                <properties>
+                                  <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is coming from the user,&#xA;when multiple commands run successfully,&#xA;then the return code is 0" />
+                                </properties>
+                              </test-case>
+                              <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive, given console input is coming from the user, when multiple commands run successfully, then all the commands run" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                                <properties>
+                                  <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is coming from the user,&#xA;when multiple commands run successfully,&#xA;then all the commands run" />
+                                </properties>
+                              </test-case>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestSuite" name="when one of multiple commands fails" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is coming from the user,&#xA;when one of multiple commands fails" />
+                            </properties>
+                            <results>
+                              <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive, given console input is coming from the user, when one of multiple commands fails, then the return code is -1" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                                <properties>
+                                  <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is coming from the user,&#xA;when one of multiple commands fails,&#xA;then the return code is -1" />
+                                </properties>
+                              </test-case>
+                              <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive, given console input is coming from the user, when one of multiple commands fails, then all the commands run" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                                <properties>
+                                  <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is coming from the user,&#xA;when one of multiple commands fails,&#xA;then all the commands run" />
+                                </properties>
+                              </test-case>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="given console input is not coming from the the user" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is not coming from the the user" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive, given console input is not coming from the the user, then execution stops after that command" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is not coming from the the user,&#xA;then execution stops after that command" />
+                            </properties>
+                          </test-case>
+                          <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive, given console input is not coming from the the user, then the return value for the command is passed on" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_fail_strictly_on_error_when_running_noninteractive,&#xA;given console input is not coming from the the user,&#xA;then the return value for the command is passed on" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestSuite" name="Should_give_user_prompt_in_interactive_mode" executed="True" result="Success" success="True" time="0.007" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_give_user_prompt_in_interactive_mode" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when the console mode command is running for the user" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_give_user_prompt_in_interactive_mode,&#xA;when the console mode command is running for the user" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_give_user_prompt_in_interactive_mode, when the console mode command is running for the user, then the output contains a helpful prompt" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_give_user_prompt_in_interactive_mode,&#xA;when the console mode command is running for the user,&#xA;then the output contains a helpful prompt" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the console mode command is not running for the user" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_give_user_prompt_in_interactive_mode,&#xA;when the console mode command is not running for the user" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_give_user_prompt_in_interactive_mode, when the console mode command is not running for the user, then the output does not contain the helpful prompt" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_give_user_prompt_in_interactive_mode,&#xA;when the console mode command is not running for the user,&#xA;then the output does not contain the helpful prompt" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestSuite" name="Should_interpret_quotes_properly" executed="True" result="Success" success="True" time="0.011" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_interpret_quotes_properly" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when a command is ran with quoted input" executed="True" result="Success" success="True" time="0.010" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_interpret_quotes_properly,&#xA;when a command is ran with quoted input" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_interpret_quotes_properly, when a command is ran with quoted input, then the output contains a helpful prompt" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.ConsoleModeCommandSpecs.Should_interpret_quotes_properly,&#xA;when a command is ran with quoted input,&#xA;then the output contains a helpful prompt" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="lets_user_browse_command_help" executed="True" result="Success" success="True" time="0.034" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="given we have some commands" executed="True" result="Success" success="True" time="0.034" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands" />
+                    </properties>
+                    <results>
+                      <test-suite type="TestSuite" name="when the user does not specify a command" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when the user does not specify a command" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.lets_user_browse_command_help, given we have some commands, when the user does not specify a command, then the output contains a list of available commands" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when the user does not specify a command,&#xA;then the output contains a list of available commands" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when the user does not specify a command" executed="True" result="Success" success="True" time="0.004" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when the user does not specify a command" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.lets_user_browse_command_help, given we have some commands, when the user does not specify a command, then the output contains a list of available commands`2" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when the user does not specify a command,&#xA;then the output contains a list of available commands`2" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when we call a command, asking for help" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when we call a command, asking for help" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.lets_user_browse_command_help, given we have some commands, when we call a command, asking for help, then the output contains a all help available for that command" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when we call a command, asking for help,&#xA;then the output contains a all help available for that command" />
+                            </properties>
+                          </test-case>
+                          <test-case name="ManyConsole.Tests.lets_user_browse_command_help, given we have some commands, when we call a command, asking for help, then the process exit code is non-zero" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when we call a command, asking for help,&#xA;then the process exit code is non-zero" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="when we call a command, asking for help" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when we call a command, asking for help" />
+                        </properties>
+                        <results>
+                          <test-case name="ManyConsole.Tests.lets_user_browse_command_help, given we have some commands, when we call a command, asking for help, then the output contains a all help available for that command`2" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when we call a command, asking for help,&#xA;then the output contains a all help available for that command`2" />
+                            </properties>
+                          </test-case>
+                          <test-case name="ManyConsole.Tests.lets_user_browse_command_help, given we have some commands, when we call a command, asking for help, then the process exit code is non-zero`2" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                            <properties>
+                              <property name="MultilineName" value="ManyConsole.Tests.lets_user_browse_command_help,&#xA;given we have some commands,&#xA;when we call a command, asking for help,&#xA;then the process exit code is non-zero`2" />
+                            </properties>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Multiple_dispatch_calls_dont_interfere_with_each_other" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Multiple_dispatch_calls_dont_interfere_with_each_other" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="when repeatedly dispatching a command" executed="True" result="Success" success="True" time="0.007" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Multiple_dispatch_calls_dont_interfere_with_each_other,&#xA;when repeatedly dispatching a command" />
+                    </properties>
+                    <results>
+                      <test-case name="ManyConsole.Tests.Multiple_dispatch_calls_dont_interfere_with_each_other, when repeatedly dispatching a command, then all parameters are evaluated independently" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Multiple_dispatch_calls_dont_interfere_with_each_other,&#xA;when repeatedly dispatching a command,&#xA;then all parameters are evaluated independently" />
+                        </properties>
+                      </test-case>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="show_useful_command_summary" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.show_useful_command_summary" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="when a simple command is run" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.show_useful_command_summary,&#xA;when a simple command is run" />
+                    </properties>
+                    <results>
+                      <test-case name="ManyConsole.Tests.show_useful_command_summary, when a simple command is run, then the output includes a summary of the command" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.show_useful_command_summary,&#xA;when a simple command is run,&#xA;then the output includes a summary of the command" />
+                        </properties>
+                      </test-case>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestSuite" name="Show_useful_error_information" executed="True" result="Success" success="True" time="0.010" asserts="0">
+                <properties>
+                  <property name="MultilineName" value="ManyConsole.Tests.Show_useful_error_information" />
+                </properties>
+                <results>
+                  <test-suite type="TestSuite" name="when the user types in input which is rejected by NDesk.Options" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Show_useful_error_information,&#xA;when the user types in input which is rejected by NDesk.Options" />
+                    </properties>
+                    <results>
+                      <test-case name="ManyConsole.Tests.Show_useful_error_information, when the user types in input which is rejected by NDesk.Options, then the error output gives the error message and typical help" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Show_useful_error_information,&#xA;when the user types in input which is rejected by NDesk.Options,&#xA;then the error output gives the error message and typical help" />
+                        </properties>
+                      </test-case>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestSuite" name="when a command causes other unexpected errors" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                    <properties>
+                      <property name="MultilineName" value="ManyConsole.Tests.Show_useful_error_information,&#xA;when a command causes other unexpected errors" />
+                    </properties>
+                    <results>
+                      <test-case name="ManyConsole.Tests.Show_useful_error_information, when a command causes other unexpected errors, then the exception passes through" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                        <properties>
+                          <property name="MultilineName" value="ManyConsole.Tests.Show_useful_error_information,&#xA;when a command causes other unexpected errors,&#xA;then the exception passes through" />
+                        </properties>
+                      </test-case>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

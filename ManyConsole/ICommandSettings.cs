@@ -15,7 +15,8 @@ namespace ManyConsole
         public DefaultCommandSettings()
         {
         }
-        public DefaultCommandSettings(TextWriter consoleOut) {
+        public DefaultCommandSettings(TextWriter consoleOut)
+        {
             ConsoleOut = consoleOut;
         }
         public TextWriter ConsoleOut { get; set; }

@@ -12,7 +12,7 @@ namespace SampleConsole
             var commands = GetCommands();
 
             // then run them.
-            Environment.ExitCode = ConsoleCommandDispatcher.DispatchCommand(commands, args, new DefaultCommandSettings(Console.Out), new HelpCommand()).ExitCode;
+            Environment.ExitCode = ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(commands, args, new DefaultCommandSettings(Console.Out), new HelpCommand()).ExitCode;
             return Environment.ExitCode;
         }
 
@@ -23,7 +23,7 @@ namespace SampleConsole
     }
 
 
-    class HelpCommand : ConsoleCommand, IHelpCommand<DefaultCommandResult, DefaultCommandSettings>
+    class HelpCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>, IHelpCommand<DefaultCommandResult, DefaultCommandSettings>
     {
         public HelpCommand()
         {

@@ -3,7 +3,7 @@ using ManyConsole;
 
 namespace SampleConsole
 {
-    public class ThrowException : ConsoleCommand
+    public class ThrowException : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
     {
         public ThrowException()
         {
@@ -13,7 +13,8 @@ namespace SampleConsole
 
         public string Message = "Command ThrowException threw an exception with this message.";
 
-        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+        {
             throw new Exception(Message);
         }
     }

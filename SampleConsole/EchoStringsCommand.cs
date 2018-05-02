@@ -3,13 +3,14 @@ using ManyConsole;
 
 namespace SampleConsole
 {
-    public class EchoStringsCommand : ConsoleCommand
+    public class EchoStringsCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
     {
         public string comments;
 
         public EchoStringsCommand()
         {
             IsCommand("echo");
+            HasAlias("--echo");
 
             HasOption("c|comment=",
                            "enter a string, maybe even delimited by double quotes, i.e. - \"See Matt's poorly written code\"",
@@ -18,12 +19,12 @@ namespace SampleConsole
             AllowsAnyAdditionalArguments("<foo1> <foo2> <fooN> where N is a word");
         }
 
-        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+        {
             if (string.IsNullOrWhiteSpace(comments))
             {
                 Console.WriteLine("You made no comment");
-            }
-            else
+            } else
             {
                 Console.WriteLine("Your comment is: " + comments);
             }

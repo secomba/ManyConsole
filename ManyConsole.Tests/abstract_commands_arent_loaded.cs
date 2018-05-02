@@ -8,13 +8,13 @@ namespace ManyConsole.Tests
 {
     public class abstract_commands_arent_loaded : GivenWhenThenFixture
     {
-        public abstract class AbstractCommand : ConsoleCommand
+        public abstract class AbstractCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
         {
         }
 
         public abstract class AnotherAbstractCommand : AbstractCommand
         {
-            public AnotherAbstractCommand() {}
+            public AnotherAbstractCommand() { }
         }
 
         public class NonabstractCommand : AnotherAbstractCommand
@@ -24,7 +24,7 @@ namespace ManyConsole.Tests
                 this.IsCommand("NonabstractCommand");
             }
 
-          
+
             public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
             {
                 return new DefaultCommandResult();
@@ -35,7 +35,7 @@ namespace ManyConsole.Tests
         {
             it("when loading commands from an assembly, abstract commands are ignored", delegate
             {
-                var commands = ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(this.GetType());
+                var commands = ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.FindCommandsInSameAssemblyAs(this.GetType());
 
                 expect(() => commands.Any(c => c.GetType() == typeof(NonabstractCommand)));
                 expect(() => !commands.Any(c => c.GetType() == typeof(AbstractCommand)));

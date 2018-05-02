@@ -6,16 +6,14 @@ using NDesk.Options;
 
 namespace ManyConsole
 {
-
-    public abstract class ConsoleCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings> { }
     public abstract class ConsoleCommand<TResult, TSettings> : ConsoleUtil, IConsoleCommand<TResult, TSettings> where TResult : ICommandResult where TSettings : ICommandSettings
     {
-        public ConsoleCommand()
+        protected ConsoleCommand()
         {
             OneLineDescription = "";
             Options = new HideableOptionSet();
             TraceCommandAfterParse = true;
-            RemainingArgumentsCount = 0;
+            RemainingArgumentsCountMax = 0;
             RemainingArgumentsHelpText = "";
             OptionsHasd = new HideableOptionSet();
             RequiredOptions = new List<RequiredOptionRecord>();
@@ -24,12 +22,14 @@ namespace ManyConsole
         public bool IsHidden { get; private set; }
 
         public string Command { get; private set; }
+        public List<string> Aliases { get; private set; }
         public string OneLineDescription { get; private set; }
         public string LongDescription { get; private set; }
         public HideableOptionSet Options { get; protected set; }
         public bool TraceCommandAfterParse { get; private set; }
         public bool ShowHelpWithoutFurtherArgs { get; private set; }
-        public int? RemainingArgumentsCount { get; private set; }
+        public int? RemainingArgumentsCountMin { get; private set; }
+        public int? RemainingArgumentsCountMax { get; private set; }
         public string RemainingArgumentsHelpText { get; private set; }
         private HideableOptionSet OptionsHasd { get; }
         private List<RequiredOptionRecord> RequiredOptions { get; }
@@ -42,6 +42,19 @@ namespace ManyConsole
             return this;
         }
 
+        public ConsoleCommand<TResult, TSettings> HasAlias(string alias)
+        {
+            if (!String.IsNullOrEmpty(alias))
+            {
+                if (Aliases == null)
+                {
+                    Aliases = new List<string>();
+                }
+                Aliases.Add(alias);
+            }
+            return this;
+        }
+
         public ConsoleCommand<TResult, TSettings> HasLongDescription(string longDescription)
         {
             LongDescription = longDescription;
@@ -50,14 +63,21 @@ namespace ManyConsole
 
         public ConsoleCommand<TResult, TSettings> HasAdditionalArguments(int? count = 0, string helpText = "")
         {
-            RemainingArgumentsCount = count;
+            HasAdditionalArgumentsBetween(count, count, helpText);
+            return this;
+        }
+
+        public ConsoleCommand<TResult, TSettings> HasAdditionalArgumentsBetween(int? min, int? max, string helpText = "")
+        {
+            RemainingArgumentsCountMin = min;
+            RemainingArgumentsCountMax = max;
             RemainingArgumentsHelpText = helpText;
             return this;
         }
 
         public ConsoleCommand<TResult, TSettings> AllowsAnyAdditionalArguments(string helpText = "")
         {
-            HasAdditionalArguments(null, helpText);
+            HasAdditionalArgumentsBetween(null, null, helpText);
             return this;
         }
 
@@ -128,7 +148,7 @@ namespace ManyConsole
 
         public virtual void CheckRequiredArguments()
         {
-            var missingOptions = this.RequiredOptions
+            var missingOptions = RequiredOptions
                 .Where(o => !o.WasIncluded).Select(o => o.Name).OrderBy(n => n).ToArray();
 
             if (missingOptions.Any())
@@ -146,7 +166,7 @@ namespace ManyConsole
 
             if (!remainingArguments.Any())
             {
-                throw new ConsoleHelpAsException("Command '" + FormatCommandName(this.Command) + "' cannot be run without any further arguments.");
+                throw new ConsoleHelpAsException("Command '" + FormatCommandName(Command) + "' cannot be run without any further arguments.");
             }
         }
 

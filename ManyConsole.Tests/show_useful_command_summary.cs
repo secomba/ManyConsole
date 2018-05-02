@@ -9,7 +9,7 @@ namespace ManyConsole.Tests
 {
     public class show_useful_command_summary : GivenWhenThenFixture
     {
-        class SomeCommand : ConsoleCommand
+        class SomeCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
         {
             public SomeCommand()
             {
@@ -20,9 +20,10 @@ namespace ManyConsole.Tests
             public string FieldA = "abc";
             public string PropertyB { get; set; }
             public int? PropertyC { get; set; }
-            public IEnumerable<int>  PropertyD = new int[] { 1,2,3 };
+            public IEnumerable<int> PropertyD = new int[] { 1, 2, 3 };
 
-            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+            {
                 return new DefaultCommandResult();
             }
         }
@@ -36,8 +37,8 @@ namespace ManyConsole.Tests
                 {
                     var sw = new StringWriter(result);
 
-                    ConsoleCommandDispatcher.DispatchCommand(
-                        new ConsoleCommand[]
+                    ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(
+                        new IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>[]
                         {
                             new SomeCommand()
                         },

@@ -10,8 +10,9 @@ namespace ManyConsole.Internal
 {
     public class ConsoleHelp
     {
-        
-        public static void ShowSummaryOfCommands<TResult,TSettings>(IEnumerable<IConsoleCommand<TResult, TSettings>> commands, TextWriter console, string summaryTitle = null) where TResult : ICommandResult where TSettings : ICommandSettings {
+
+        public static void ShowSummaryOfCommands<TResult, TSettings>(IEnumerable<IConsoleCommand<TResult, TSettings>> commands, TextWriter console, string summaryTitle = null) where TResult : ICommandResult where TSettings : ICommandSettings
+        {
             console.WriteLine();
             if (summaryTitle != null)
             {
@@ -25,7 +26,7 @@ namespace ManyConsole.Internal
             string helpCommand = "help <name>";
 
             var commandList = commands.Where(it => !it.IsHidden).ToList();
-            var n = commandList.Select(c => ConsoleUtil.FormatCommandName(c.Command)).Concat(new [] { helpCommand}).Max(c => c.Length) + 1;
+            var n = commandList.Select(c => ConsoleUtil.FormatCommandName(c.Command)).Concat(new[] { helpCommand }).Max(c => c.Length) + 1;
             foreach (var command in commandList)
             {
                 // don't exceed console window with
@@ -48,24 +49,33 @@ namespace ManyConsole.Internal
 
             console.WriteLine(commandStrings.First());
 
-            foreach (var commandString in commandStrings.Skip(1)) {
+            foreach (var commandString in commandStrings.Skip(1))
+            {
 
                 if (ConsoleUtil.ConsoleWidth - intendation > minWordLength)
                 {
                     var secondLineCommandStrings = ConsoleUtil.SplitStringHumanReadable(commandString, ConsoleUtil.ConsoleWidth - intendation, splitpattern: null);
                     secondLineCommandStrings.ForEach(it => console.WriteLine(prefix + it));
-                }
-                else
+                } else
                 {
                     console.WriteLine(prefix + commandString);
                 }
             }
         }
-        public static void ShowCommandHelp<TResult, TSettings>(IConsoleCommand<TResult, TSettings> selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false) where TResult : ICommandResult where TSettings : ICommandSettings {
+        public static void ShowCommandHelp<TResult, TSettings>(IConsoleCommand<TResult, TSettings> selectedCommand, TextWriter console, bool skipExeInExpectedUsage = false) where TResult : ICommandResult where TSettings : ICommandSettings
+        {
             var haveOptions = selectedCommand.GetActualOptions().Count > 0;
 
             console.WriteLine();
             console.WriteLine("'" + ConsoleUtil.FormatCommandName(selectedCommand.Command) + "' - " + selectedCommand.OneLineDescription);
+            if (selectedCommand.Aliases != null && selectedCommand.Aliases.Count > 0)
+            {
+                console.WriteLine("Aliases:");
+                foreach (string alias in selectedCommand.Aliases)
+                {
+                    console.WriteLine("  " + alias);
+                }
+            }
             console.WriteLine();
 
             if (!string.IsNullOrEmpty(selectedCommand.LongDescription))
@@ -86,7 +96,7 @@ namespace ManyConsole.Internal
             if (haveOptions)
                 console.Write(" <options> ");
 
-            console.WriteLine((haveOptions? "":" ") + selectedCommand.RemainingArgumentsHelpText);
+            console.WriteLine((haveOptions ? "" : " ") + selectedCommand.RemainingArgumentsHelpText);
 
             if (haveOptions)
             {
@@ -96,7 +106,8 @@ namespace ManyConsole.Internal
             console.WriteLine();
         }
 
-        public static void ShowParsedCommand<TResult, TSettings>(IConsoleCommand<TResult, TSettings> consoleCommand, TextWriter consoleOut) where TResult : ICommandResult where TSettings : ICommandSettings {
+        public static void ShowParsedCommand<TResult, TSettings>(IConsoleCommand<TResult, TSettings> consoleCommand, TextWriter consoleOut) where TResult : ICommandResult where TSettings : ICommandSettings
+        {
 
             if (!consoleCommand.TraceCommandAfterParse || consoleCommand.IsHidden)
             {
@@ -106,12 +117,14 @@ namespace ManyConsole.Internal
             string[] skippedProperties = {
                 "IsHidden",
                 "Command",
+                "Aliases",
                 "OneLineDescription",
                 "LongDescription",
                 "Options",
                 "Console",
                 "TraceCommandAfterParse",
-                "RemainingArgumentsCount",
+                "RemainingArgumentsCountMin",
+                "RemainingArgumentsCountMax",
                 "RemainingArgumentsHelpText",
                 "ShowHelpWithoutFurtherArgs",
                 "RequiredOptions"
@@ -123,7 +136,7 @@ namespace ManyConsole.Internal
             var fields = consoleCommand.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => !skippedProperties.Contains(p.Name));
 
-            Dictionary<string,string> allValuesToTrace = new Dictionary<string, string>();
+            Dictionary<string, string> allValuesToTrace = new Dictionary<string, string>();
 
             foreach (var property in properties)
             {
@@ -138,20 +151,19 @@ namespace ManyConsole.Internal
 
             consoleOut.WriteLine();
 
-            string introLine = String.Format("Executing {0}", ConsoleUtil.FormatCommandName(consoleCommand.Command));
+            string introLine = $"Executing {ConsoleUtil.FormatCommandName(consoleCommand.Command)}";
 
             if (string.IsNullOrEmpty(consoleCommand.OneLineDescription))
             {
                 introLine = introLine + ":";
-                Console.WriteLine(introLine);
-            }
-            else
+                consoleOut.WriteLine(introLine);
+            } else
             {
-                var description =  consoleCommand.OneLineDescription;
+                var description = consoleCommand.OneLineDescription;
                 PrintCommandConsoleFriendly(consoleOut, introLine, description, introLine.Length, offset => "{0} ({1}):");
             }
 
-            foreach(var value in allValuesToTrace.OrderBy(k => k.Key))
+            foreach (var value in allValuesToTrace.OrderBy(k => k.Key))
                 consoleOut.WriteLine("    " + value.Key + " : " + value.Value);
 
             consoleOut.WriteLine();
@@ -166,13 +178,12 @@ namespace ManyConsole.Internal
                 readable = "";
                 var separator = "";
 
-                foreach (var member in (IEnumerable) value)
+                foreach (var member in (IEnumerable)value)
                 {
                     readable += separator + MakeObjectReadable(member);
                     separator = ", ";
                 }
-            }
-            else if (value != null)
+            } else if (value != null)
                 readable = value.ToString();
             else
                 readable = "null";

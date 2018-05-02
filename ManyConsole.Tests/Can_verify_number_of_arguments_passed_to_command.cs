@@ -13,32 +13,32 @@ namespace ManyConsole.Tests
         {
             given("a command expecting 5 parameters", delegate
             {
-                when("the command is called with no parameters", delegate()
+                when("the command is called with no parameters", delegate ()
                 {
                     var output = run_command_with_parameters(new[] { "command" });
 
-                    then("the output has an errorstring asking for 5 parameters", delegate()
+                    then("the output has an errorstring asking for 5 parameters", delegate ()
                     {
                         expect(() => output.Contains("Invalid number of arguments-- expected 5 more."));
                     });
                 });
 
-                when("the command is called with 8 parameters", delegate()
+                when("the command is called with 8 parameters", delegate ()
                 {
                     var output = run_command_with_parameters(new[] { "command", "1", "2", "3", "4", "5", "6", "7", "8" });
 
-                    then("the output has an errorstring indicating the extra parameters", delegate()
+                    then("the output has an errorstring indicating the extra parameters", delegate ()
                     {
                         expect(() => output.Contains("Extra parameters specified: 6, 7, 8"));
                     });
                 });
 
 
-                when("the command is called with 5 parameters", delegate()
+                when("the command is called with 5 parameters", delegate ()
                 {
                     var output = run_command_with_parameters(new[] { "command", "1", "2", "3", "4", "5" });
 
-                    then("the output has no errorstring", delegate()
+                    then("the output has no errorstring", delegate ()
                     {
                         expect(() => output.Trim() == "Executing command:");
                     });
@@ -46,7 +46,7 @@ namespace ManyConsole.Tests
             });
         }
 
-        public class CommandWith5Parameters : ConsoleCommand
+        public class CommandWith5Parameters : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
         {
             public CommandWith5Parameters()
             {
@@ -54,7 +54,8 @@ namespace ManyConsole.Tests
                 HasAdditionalArguments(5);
             }
 
-            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+            {
                 return new DefaultCommandResult();
             }
         }
@@ -66,8 +67,8 @@ namespace ManyConsole.Tests
                 StringBuilder sb = new StringBuilder();
                 var sw = new StringWriter(sb);
 
-                ConsoleCommandDispatcher.DispatchCommand(
-                    new ConsoleCommand[]
+                ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(
+                    new IConsoleCommand<DefaultCommandResult, DefaultCommandSettings>[]
                     {
                         new CommandWith5Parameters()
                     },

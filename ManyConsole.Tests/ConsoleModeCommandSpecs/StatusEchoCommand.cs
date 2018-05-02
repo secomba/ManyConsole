@@ -2,7 +2,7 @@
 
 namespace ManyConsole.Tests.ConsoleModeCommandSpecs
 {
-    public class StatusEchoCommand : ConsoleCommand
+    public class StatusEchoCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
     {
         public static int RunCount = 0;
 
@@ -14,9 +14,10 @@ namespace ManyConsole.Tests.ConsoleModeCommandSpecs
 
         public int StatusCode;
 
-        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+        {
             RunCount++;
-            return new DefaultCommandResult { ExitCode = StatusCode};
+            return new DefaultCommandResult { ExitCode = StatusCode };
         }
     }
 }

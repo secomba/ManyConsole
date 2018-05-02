@@ -12,7 +12,7 @@ namespace ManyConsole.Tests
     {
         public override void Specify()
         {
-            given("a no-op command that requires a parameter", delegate()
+            given("a no-op command that requires a parameter", delegate ()
             {
                 string result = null;
                 var noopCommand = new TestCommand()
@@ -20,22 +20,22 @@ namespace ManyConsole.Tests
                     .HasOption("ignored=", "An extra option.", v => { })
                     .HasRequiredOption("f|foo=", "This foo to use.", v => result = v)
                     .SkipsCommandSummaryBeforeRunning();
-                
+
                 when_the_command_is_ran_without_the_parameter_then_the_console_gives_error_output(noopCommand, "foo");
 
-                when("that command is ran with the parameter", delegate()
+                when("that command is ran with the parameter", delegate ()
                 {
                     StringWriter output = new StringWriter();
 
-                    var exitCode = arrange(() => ConsoleCommandDispatcher.DispatchCommand(noopCommand, 
+                    var exitCode = arrange(() => ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(noopCommand,
                         new[] { "required", "-foo", "bar" }, output).ExitCode);
 
-                    then("the exit code indicates the call succeeded", delegate()
+                    then("the exit code indicates the call succeeded", delegate ()
                     {
                         expect(() => exitCode == 0);
                     });
 
-                    then("the option is actually received", delegate()
+                    then("the option is actually received", delegate ()
                     {
                         expect(() => result == "bar");
                     });
@@ -53,10 +53,10 @@ namespace ManyConsole.Tests
                 {
                     StringWriter output = new StringWriter();
 
-                    var exitCode = arrange(() => ConsoleCommandDispatcher.DispatchCommand(requiresInteger,
+                    var exitCode = arrange(() => ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(requiresInteger,
                         new[] { "parse-int", "-value", "42" }, output).ExitCode);
 
-                    then("the command is told the parameter", ()=>
+                    then("the command is told the parameter", () =>
                     {
                         expect(() => result == 42);
                     });
@@ -70,16 +70,16 @@ namespace ManyConsole.Tests
 
         void when_the_command_is_ran_without_the_parameter_then_the_console_gives_error_output(ConsoleCommand<DefaultCommandResult, DefaultCommandSettings> command, string parameterName)
         {
-            when("that command is ran without the parameter", delegate()
+            when("that command is ran without the parameter", delegate ()
             {
                 StringWriter output = new StringWriter();
 
-                var exitCode = arrange(() => ConsoleCommandDispatcher.DispatchCommand(command,new[] {command.Command}, output).ExitCode);
+                var exitCode = arrange(() => ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(command, new[] { command.Command }, output).ExitCode);
 
                 then("the output indicates the parameter wasn't specified",
-                     delegate() { expect(() => output.ToString().Contains("Missing option: " + parameterName)); });
+                     delegate () { expect(() => output.ToString().Contains("Missing option: " + parameterName)); });
 
-                then("the exit code indicates the call failed", delegate() { expect(() => exitCode == -1); });
+                then("the exit code indicates the call failed", delegate () { expect(() => exitCode == -1); });
             });
         }
     }

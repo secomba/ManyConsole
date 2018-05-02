@@ -8,24 +8,23 @@ namespace ManyConsole.Internal
     public abstract class ConsoleUtil
     {
         public const int ConsoleWidth = 80;
-        public static void VerifyNumberOfArguments(string[] args, int expectedArgumentCount)
+        public static void VerifyNumberOfArguments(string[] args, int? expectedArgumentCountMin, int? expectedArgumentCountMax)
         {
-            if (args.Count() < expectedArgumentCount)
-                throw new ConsoleHelpAsException(
-                    String.Format("Invalid number of arguments-- expected {0} more.", expectedArgumentCount - args.Count()));
-            
-            if (args.Count() > expectedArgumentCount)
-                throw new ConsoleHelpAsException("Extra parameters specified: " + String.Join(", ", args.Skip(expectedArgumentCount).ToArray()));
+            if (expectedArgumentCountMin.HasValue && args.Length < expectedArgumentCountMin.Value)
+                throw new ConsoleHelpAsException($"Invalid number of arguments-- expected {expectedArgumentCountMin.Value - args.Length} more.");
+
+            if (expectedArgumentCountMax.HasValue && args.Length > expectedArgumentCountMax.Value)
+                throw new ConsoleHelpAsException("Extra parameters specified: " + string.Join(", ", args.Skip(expectedArgumentCountMax.Value).ToArray()));
         }
 
-        public static bool DoesArgMatchCommand<TResult, TSettings>(string argument, IConsoleCommand<TResult, TSettings> command) where TResult : ICommandResult where TSettings: ICommandSettings
+        public static bool DoesArgMatchCommand<TResult, TSettings>(string argument, IConsoleCommand<TResult, TSettings> command) where TResult : ICommandResult where TSettings : ICommandSettings
         {
             if (argument == null || command == null)
             {
                 return false;
             }
             return command.Command.ToLower()
-                    .Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray()
+                    .Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray()
                     .Contains(argument.ToLower());
         }
 
@@ -35,7 +34,7 @@ namespace ManyConsole.Internal
             {
                 return commandName.Trim();
             }
-            return String.Join(", ", commandName.Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray());
+            return String.Join(", ", commandName.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()).ToArray());
         }
 
         /// <summary>
@@ -50,12 +49,14 @@ namespace ManyConsole.Internal
         /// <param name="splitpattern"></param>
         /// <param name="paginateAfterNSplits">The number of splits when pagination should be enabled (default: -1 ^= no pagination) </param>
         /// <returns></returns>
-        public static List<string> SplitStringHumanReadable(string s, int maxSubstringLength, string splitpattern = @"\!|\?|\,|\.|\-|\:|\;", int paginateAfterNSplits = -1) {
+        public static List<string> SplitStringHumanReadable(string s, int maxSubstringLength, string splitpattern = @"\!|\?|\,|\.|\-|\:|\;", int paginateAfterNSplits = -1)
+        {
             const int paginationStringLength = 10;
 
             List<string> messageList = new List<string>();
 
-            if (string.IsNullOrEmpty(s) || maxSubstringLength < 1) {
+            if (string.IsNullOrEmpty(s) || maxSubstringLength < 1)
+            {
                 return messageList;
             }
 
@@ -64,32 +65,41 @@ namespace ManyConsole.Internal
 
             str = str.Trim();
 
-            try {
+            try
+            {
 
-                if (paginateAfterNSplits >= 0 && str.Length > maxSubstringLength) {
-                    if (maxSubstringLength - paginationStringLength > 0) {
+                if (paginateAfterNSplits >= 0 && str.Length > maxSubstringLength)
+                {
+                    if (maxSubstringLength - paginationStringLength > 0)
+                    {
                         maxSubstringLength -= paginationStringLength; // reduce maxSubstringLength to reserve space for pagination
-                    } else {
+                    } else
+                    {
                         paginateAfterNSplits = -1; // disable pagination when remaining substring would be too short
                     }
                 }
 
-                while (str.Length > maxSubstringLength) {
+                while (str.Length > maxSubstringLength)
+                {
 
                     string tmp = str.Substring(0, maxSubstringLength);
 
                     int lastIdx = -1;
 
-                    if (!string.IsNullOrEmpty(splitpattern)) {
+                    if (!string.IsNullOrEmpty(splitpattern))
+                    {
                         lastIdx = Regex.Match(tmp, splitpattern, RegexOptions.RightToLeft).Index;
                     }
 
-                    if (lastIdx > 0) {
+                    if (lastIdx > 0)
+                    {
                         lastIdx++;
-                    } else {
+                    } else
+                    {
                         lastIdx = tmp.LastIndexOf(' '); // use whitespace to seperate strings when no punctiations where found
 
-                        if (lastIdx <= 0) {
+                        if (lastIdx <= 0)
+                        {
                             lastIdx = maxSubstringLength; // simply cut words when no whitespace was found
                         }
                     }
@@ -102,10 +112,13 @@ namespace ManyConsole.Internal
                 messageList.Add(str);
 
                 // add pagination
-                if (paginateAfterNSplits >= 0 && messageList.Count > paginateAfterNSplits) {
-                    for (int i = 0; i < messageList.Count; i++) {
+                if (paginateAfterNSplits >= 0 && messageList.Count > paginateAfterNSplits)
+                {
+                    for (int i = 0; i < messageList.Count; i++)
+                    {
                         string paginationString = "[" + (i + 1) + "/" + messageList.Count + "] ";
-                        if (paginationString.Length > paginationStringLength) { // ensure pagination str is not longer than paginationStringLength
+                        if (paginationString.Length > paginationStringLength)
+                        { // ensure pagination str is not longer than paginationStringLength
                             paginationString = paginationString.Substring(0, paginationStringLength - 3);
                             paginationString += ".. ";
                         }
@@ -114,9 +127,11 @@ namespace ManyConsole.Internal
                     }
                 }
 
-            } catch (Exception) { // "hard-split" when error occurred
+            } catch (Exception)
+            { // "hard-split" when error occurred
                 messageList.Clear();
-                while (s.Length > maxSubstringLength) {
+                while (s.Length > maxSubstringLength)
+                {
                     messageList.Add(s.Substring(0, maxSubstringLength));
                     s = s.Substring(maxSubstringLength);
                 }

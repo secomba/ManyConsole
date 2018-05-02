@@ -27,7 +27,7 @@ namespace ManyConsole.Tests
                 var writer = new StringWriter();
 
                 WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(commands, writer, firstcommand, secondCommand, new string[0]);
-                WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(commands, writer, firstcommand, secondCommand, new [] { "help"});
+                WhenTheUserDoesNotSpecifyACommandThenShowAvailableCommands(commands, writer, firstcommand, secondCommand, new[] { "help" });
 
                 ShouldShowHelpWhenRequested(commands, new string[] { "command-c", "/?" });
                 ShouldShowHelpWhenRequested(commands, new string[] { "help", "command-c" });
@@ -40,7 +40,7 @@ namespace ManyConsole.Tests
         {
             when("the user does not specify a command", delegate
                 {
-                    arrange(() => ConsoleCommandDispatcher.DispatchCommand(commands, arguments, new DefaultCommandSettings(writer)));
+                    arrange(() => ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(commands, arguments, new DefaultCommandSettings(writer)));
 
                     then("the output contains a list of available commands", delegate
                         {
@@ -77,7 +77,7 @@ deserunt mollit anim id est laborum.")
 
                 commands.Add(commandC);
 
-                var exitCode = arrange(() => ConsoleCommandDispatcher.DispatchCommand(commands, consoleArguments, new DefaultCommandSettings(writer)).ExitCode);
+                var exitCode = arrange(() => ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(commands, consoleArguments, new DefaultCommandSettings(writer)).ExitCode);
 
                 then("the output contains a all help available for that command", delegate
                 {

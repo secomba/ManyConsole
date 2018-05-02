@@ -7,7 +7,7 @@ namespace MC.AX.DataUtility
     /// <summary>
     /// Example implementation of a ManyConsole command-line argument parser (ConsoleCommand) class
     /// </summary>
-    public class ExampleCommand : ConsoleCommand
+    public class ExampleCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
     {
         /// <summary>
         /// Configure command options and describe details in the class contructor
@@ -49,7 +49,7 @@ namespace MC.AX.DataUtility
             };
 
             this.HasRequiredOption("requiredOption=", "Required string argument also requiring a value.", s => { });
-            this.HasOption("anotherOptional=", "Another way to specify optional arguments", s => {});
+            this.HasOption("anotherOptional=", "Another way to specify optional arguments", s => { });
 
             HasAdditionalArguments(2, "<Argument1> <Argument2>");
         }
@@ -61,7 +61,8 @@ namespace MC.AX.DataUtility
         public bool BooleanOption;
         public List<string> OptionalArgumentList = new List<string>();
 
-        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+        public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+        {
             Argument1 = remainingArguments[0];
             Argument2 = remainingArguments[1];
 

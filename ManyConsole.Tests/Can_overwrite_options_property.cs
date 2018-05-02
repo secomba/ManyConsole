@@ -10,7 +10,7 @@ namespace ManyConsole.Tests
 {
     public class Can_overwrite_options_property : GivenWhenThenFixture
     {
-        public class OverwriteCommand : ConsoleCommand
+        public class OverwriteCommand : ConsoleCommand<DefaultCommandResult, DefaultCommandSettings>
         {
             public int A;
             public int B;
@@ -27,7 +27,8 @@ namespace ManyConsole.Tests
                 optionSet.Add<int>("B=", "second option", v => B = v);
             }
 
-            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings) {
+            public override DefaultCommandResult Run(string[] remainingArguments, ref DefaultCommandSettings settings)
+            {
                 Result = A + "," + B;
                 return new DefaultCommandResult();
             }
@@ -39,9 +40,9 @@ namespace ManyConsole.Tests
                 var command = new OverwriteCommand();
                 var consoleOutput = new StringBuilder();
 
-                var outputCode = ConsoleCommandDispatcher.DispatchCommand(
-                    command, 
-                    new []{"/A", "1", "/B", "2"}, 
+                var outputCode = ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>.DispatchCommand(
+                    command,
+                    new[] { "/A", "1", "/B", "2" },
                     new StringWriter(consoleOutput)).ExitCode;
 
                 expect(() => String.IsNullOrEmpty(consoleOutput.ToString()));

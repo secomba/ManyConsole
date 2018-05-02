@@ -8,19 +8,21 @@ using NDesk.Options;
 
 namespace ManyConsole
 {
-
-    public class ConsoleCommandDispatcher : ConsoleCommandDispatcher<DefaultCommandResult, DefaultCommandSettings>
-    {
-    }
-
-    public class ConsoleCommandDispatcher<TResult, TSettings> where TResult: ICommandResult, new() where TSettings : ICommandSettings, new()
+    public class ConsoleCommandDispatcher<TResult, TSettings> where TResult : ICommandResult, new() where TSettings : ICommandSettings, new()
     {
         public static TResult DispatchCommand(IConsoleCommand<TResult, TSettings> command, string[] arguments, TextWriter consoleOut)
         {
-            return DispatchCommand(new[] {command}, arguments, new TSettings {ConsoleOut = consoleOut});
+            return DispatchCommand(new[] { command }, arguments, new TSettings { ConsoleOut = consoleOut });
         }
 
-        public static TResult DispatchCommand(IList<IConsoleCommand<TResult, TSettings>> commands, string[] arguments, TSettings settings, IHelpCommand<TResult, TSettings> customHelpCommand = null ) {
+        public static TResult DispatchCommand(IList<IConsoleCommand<TResult, TSettings>> commands, string[] arguments,
+          TextWriter consoleOut, IHelpCommand<TResult, TSettings> customHelpCommand = null)
+        {
+            return DispatchCommand(commands, arguments, new TSettings { ConsoleOut = consoleOut }, customHelpCommand);
+        }
+
+        public static TResult DispatchCommand(IList<IConsoleCommand<TResult, TSettings>> commands, string[] arguments, TSettings settings, IHelpCommand<TResult, TSettings> customHelpCommand = null)
+        {
             if (customHelpCommand != null)
             {
                 customHelpCommand.SkipExeInExpectedUsage = settings.SkipExeInExpectedUsage;
@@ -41,16 +43,14 @@ namespace ManyConsole
                 {
                     selectedCommand = commands.First();
                     // support basic splitting of command arguments like "q|quit" => q, quit
-                    if (arguments.Any() && ConsoleUtil.DoesArgMatchCommand(arguments.First(), selectedCommand))
+                    if (arguments.Any() && (ConsoleUtil.DoesArgMatchCommand(arguments.First(), selectedCommand) || CommandMatchesArgument(selectedCommand, arguments.First())))
                     {
                         remainingArguments = selectedCommand.GetActualOptions().Parse(arguments.Skip(1));
-                    }
-                    else
+                    } else
                     {
                         remainingArguments = selectedCommand.GetActualOptions().Parse(arguments);
                     }
-                }
-                else
+                } else
                 {
                     if (!arguments.Any())
                         throw new ConsoleHelpAsException("No arguments specified.");
@@ -64,8 +64,7 @@ namespace ManyConsole
                         try
                         {
                             helpRemainingArgs = customHelpCommand.GetActualOptions().Parse(arguments.Skip(1)).ToArray();
-                        }
-                        catch
+                        } catch
                         {
                             // ignore parsing errors for help command
                         }
@@ -80,12 +79,11 @@ namespace ManyConsole
                         if (selectedCommand == null)
                         {
                             ConsoleHelp.ShowSummaryOfCommands(commands, settings.ConsoleOut);
-                        }
-                        else
+                        } else
                         {
                             ConsoleHelp.ShowCommandHelp(selectedCommand, settings.ConsoleOut, settings.SkipExeInExpectedUsage);
                         }
-                        return new TResult {ExitCode = -1};
+                        return new TResult { ExitCode = -1 };
                     }
 
                     selectedCommand = GetMatchingCommand(commands, arguments.First());
@@ -99,8 +97,7 @@ namespace ManyConsole
                 selectedCommand.CheckRequiredArguments();
 
                 selectedCommand.CheckSubLevelArguments(arguments.Skip(1).ToArray());
-
-                CheckRemainingArguments(remainingArguments, selectedCommand.RemainingArgumentsCount);
+                CheckRemainingArguments(remainingArguments, selectedCommand.RemainingArgumentsCountMin, selectedCommand.RemainingArgumentsCountMax);
 
                 bool cancel;
                 var preResult = selectedCommand.OverrideAfterHandlingArgumentsBeforeRun(remainingArguments.ToArray(), out cancel, ref settings);
@@ -114,8 +111,7 @@ namespace ManyConsole
                 }
 
                 return selectedCommand.Run(remainingArguments.ToArray(), ref settings);
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 if (e is ConsoleHelpAsException || e is OptionException)
                 {
@@ -128,7 +124,8 @@ namespace ManyConsole
                         {
                             remainingArguments = customHelpCommand.GetActualOptions().Parse(arguments).ToArray();
 
-                        } catch {
+                        } catch
+                        {
                             // ignore parsing errors for help command
                         }
                         bool cancel;
@@ -139,7 +136,7 @@ namespace ManyConsole
                         // also show manyconsole exception message
                         settings.ConsoleOut.WriteLine();
                         settings.ConsoleOut.WriteLine(e.Message);
-                        
+
                         return customHelpCommand.Run(remainingArguments, ref settings);
                     }
                     return DealWithException(e, settings.ConsoleOut, settings.SkipExeInExpectedUsage, selectedCommand, commands);
@@ -152,23 +149,44 @@ namespace ManyConsole
             IConsoleCommand<TResult, TSettings> selectedCommand, IEnumerable<IConsoleCommand<TResult, TSettings>> commands)
         {
             if (selectedCommand != null && !selectedCommand.IsHidden)
-                // dont show help for hidden command even after exception
+            // dont show help for hidden command even after exception
             {
                 console.WriteLine();
                 console.WriteLine(e.Message);
                 ConsoleHelp.ShowCommandHelp(selectedCommand, console, skipExeInExpectedUsage);
-            }
-            else
+            } else
             {
                 ConsoleHelp.ShowSummaryOfCommands(commands, console);
             }
-            
-            return new TResult {ExitCode = -1};
+
+            return new TResult { ExitCode = -1 };
         }
 
         private static IConsoleCommand<TResult, TSettings> GetMatchingCommand(IList<IConsoleCommand<TResult, TSettings>> command, string name)
         {
-            return command.FirstOrDefault(c => ConsoleUtil.DoesArgMatchCommand(name, c));
+            return command.FirstOrDefault(c => ConsoleUtil.DoesArgMatchCommand(name, c) || CommandMatchesArgument(c, name));
+        }
+
+        private static bool CommandMatchesArgument(IConsoleCommand<TResult, TSettings> command, string arg)
+        {
+            if (String.IsNullOrEmpty(arg))
+            {
+                return false;
+            }
+            if (arg.Equals(command.Command, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            } else if (command.Aliases != null && command.Aliases.Count > 0)
+            {
+                foreach (string alias in command.Aliases)
+                {
+                    if (arg.Equals(alias, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private static void ValidateConsoleCommand(IConsoleCommand<TResult, TSettings> command)
@@ -181,14 +199,13 @@ namespace ManyConsole
             }
         }
 
-        private static void CheckRemainingArguments(List<string> remainingArguments, int? parametersRequiredAfterOptions)
+        private static void CheckRemainingArguments(List<string> remainingArguments, int? parametersRequiredAfterOptionsMin, int? parametersRequiredAfterOptionsMax)
         {
-            if (parametersRequiredAfterOptions.HasValue)
-                ConsoleUtil.VerifyNumberOfArguments(remainingArguments.ToArray(),
-                    parametersRequiredAfterOptions.Value);
+            ConsoleUtil.VerifyNumberOfArguments(remainingArguments.ToArray(),
+                    parametersRequiredAfterOptionsMin, parametersRequiredAfterOptionsMax);
         }
 
-        public static IList<IConsoleCommand<TResult, TSettings>> FindCommandsInSameAssemblyAs(Type typeInSameAssembly, Func<Type,bool> validateCommandType = null)
+        public static IList<IConsoleCommand<TResult, TSettings>> FindCommandsInSameAssemblyAs(Type typeInSameAssembly, Func<Type, bool> validateCommandType = null)
         {
             if (typeInSameAssembly == null)
                 throw new ArgumentNullException("typeInSameAssembly");
@@ -209,19 +226,19 @@ namespace ManyConsole
             var commandTypes = assembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(ConsoleCommand<TResult, TSettings>)))
                 .Where(t => !t.IsAbstract)
-                .Where(t =>  validateCommandType?.Invoke(t) ?? true)
+                .Where(t => validateCommandType?.Invoke(t) ?? true)
                 .OrderBy(t => t.FullName);
 
             var result = new List<IConsoleCommand<TResult, TSettings>>();
 
             foreach (var commandType in commandTypes)
             {
-                var constructor = commandType.GetConstructor(new Type[] {});
+                var constructor = commandType.GetConstructor(new Type[] { });
 
                 if (constructor == null)
                     continue;
 
-                result.Add((ConsoleCommand<TResult, TSettings>) constructor.Invoke(new object[] {}));
+                result.Add((ConsoleCommand<TResult, TSettings>)constructor.Invoke(new object[] { }));
             }
 
             return result;
